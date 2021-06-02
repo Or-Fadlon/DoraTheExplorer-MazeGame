@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -12,35 +9,15 @@
             prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="View.MazeDisplayerController">
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New"/>
-                        <MenuItem mnemonicParsing="false" text="Save"/>
-                        <MenuItem mnemonicParsing="false" text="Load"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Options">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Properties"/>
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Exit"/>
-                <Menu mnemonicParsing="false" text="Help"/>
-                <Menu mnemonicParsing="false" text="About"/>
-            </menus>
-        </MenuBar>
+        <!-- content from TopBar.fxml included here -->
+        <fx:include fx:id="TopBar" source="TopBar.fxml"/>
     </top>
     <bottom>
         <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
-        <Pane BorderPane.alignment="CENTER">
-            <MazeDisplayer fx:id="mazeDisplayer" height="400.0" width="400.0"
-                           imageFileNamePlayer="./resources/Images/Player/Mario.png"
-                           imageFileNameWall="./resources/Images/Walls/Block.jpg"
-                           onKeyPressed="#keyPressed"/>
+        <Pane prefHeight="490.0" prefWidth="699.0" BorderPane.alignment="CENTER">
+                <MazeCanvasDisplay fx:id="mazeCanvasDisplay" height="500.0" width="500.0" onKeyPressed="#keyPressed"/>
         </Pane>
     </center>
 </BorderPane>
