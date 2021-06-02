@@ -2,8 +2,6 @@ package View;
 
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -12,17 +10,18 @@ import javafx.scene.paint.Color;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class MazeDisplayer extends Canvas {
-    // wall and player images:
-    StringProperty imageFileNamePlayer = new SimpleStringProperty();
-    StringProperty imageFileNameWall = new SimpleStringProperty();
+public class MazeCanvasDisplay extends Canvas {
+    // wall and player path images:
+    private String playerImage = "./resources/Images/Player/Mario.png";
+    private String wallImage = "./resources/Images/Walls/Block.jpg";
+
     private Maze maze;
-    // player position:
     private Position playerPosition;
 
-    public MazeDisplayer(Maze maze) {
+    public void drawNewMaze(Maze maze) {
         this.maze = maze;
-        this.playerPosition = maze.getStartPosition();
+        this.playerPosition = this.maze.getStartPosition();
+        this.draw();
     }
 
     public int getPlayerRow() {
@@ -35,35 +34,6 @@ public class MazeDisplayer extends Canvas {
 
     public void setPlayerPosition(Position position) {
         this.playerPosition = position;
-        draw();
-    }
-
-    public String getImageFileNameWall() {
-        return imageFileNameWall.get();
-    }
-
-    public void setImageFileNameWall(String imageFileNameWall) {
-        this.imageFileNameWall.set(imageFileNameWall);
-    }
-
-    public String imageFileNameWallProperty() {
-        return imageFileNameWall.get();
-    }
-
-    public String getImageFileNamePlayer() {
-        return imageFileNamePlayer.get();
-    }
-
-    public void setImageFileNamePlayer(String imageFileNamePlayer) {
-        this.imageFileNamePlayer.set(imageFileNamePlayer);
-    }
-
-    public String imageFileNamePlayerProperty() {
-        return imageFileNamePlayer.get();
-    }
-
-    public void drawMaze(Maze maze) {
-        this.maze = maze;
         draw();
     }
 
@@ -91,7 +61,7 @@ public class MazeDisplayer extends Canvas {
 
         Image wallImage = null;
         try {
-            wallImage = new Image(new FileInputStream(getImageFileNameWall()));
+            wallImage = new Image(new FileInputStream(this.wallImage));
         } catch (FileNotFoundException e) {
             System.out.println("There is no wall image file");
         }
@@ -118,7 +88,7 @@ public class MazeDisplayer extends Canvas {
 
         Image playerImage = null;
         try {
-            playerImage = new Image(new FileInputStream(getImageFileNamePlayer()));
+            playerImage = new Image(new FileInputStream(this.playerImage));
         } catch (FileNotFoundException e) {
             System.out.println("There is no player image file");
         }
