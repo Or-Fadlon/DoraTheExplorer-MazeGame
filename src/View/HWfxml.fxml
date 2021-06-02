@@ -89,10 +89,10 @@
     <center>
         <Pane BorderPane.alignment="CENTER">
             <children>
-                <MazeDisplayer fx:id="mazeDisplayer" height="400.0"
-                               imageFileNamePlayer="./resources/Images/Player/Mario.png"
-                               imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed"
-                               width="400.0"/>
+                <MazeCanvasDisplay fx:id="mazeCanvasDisplay" height="400.0"
+                                   imageFileNamePlayer="./resources/Images/Player/Mario.png"
+                                   imageFileNameWall="./resources/images/wall.png" onKeyPressed="#keyPressed"
+                                   width="400.0"/>
             </children>
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
