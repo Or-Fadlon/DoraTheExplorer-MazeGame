@@ -30,7 +30,7 @@ public class MyModel extends Observable implements IModel {
         this.maze = mazeGenerator.generate(rows, cols);
         this.playerPosition = this.maze.getStartPosition();
         setChanged();
-        notifyObservers("maze generated");
+        notifyObservers(ModelResponses.MazeGenerated);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class MyModel extends Observable implements IModel {
     public void solveMaze() {
         //TODO: call the server!!
         setChanged();
-        notifyObservers("maze solved");
+        notifyObservers(ModelResponses.MazeSolved);
     }
 
     @Override
@@ -69,9 +69,20 @@ public class MyModel extends Observable implements IModel {
         if (this.maze.validMazePosition(newPosition) && this.maze.positionOfTile(newPosition)) {
             this.playerPosition = newPosition;
             setChanged();
-            notifyObservers("move allowed");
-        } else
-            notifyObservers("move not allowed");
+            notifyObservers(ModelResponses.MoveAllowed);
+            if (this.playerPosition.equals(this.maze.getGoalPosition()))
+                this.finishGame();
+        } else {
+            setChanged();
+            notifyObservers(ModelResponses.MoveNotAllowed);
+        }
+    }
+
+    @Override
+    public void finishGame() {
+        setChanged();
+        notifyObservers(ModelResponses.Finish);
+        //TODO: how to finish?
     }
 
     @Override

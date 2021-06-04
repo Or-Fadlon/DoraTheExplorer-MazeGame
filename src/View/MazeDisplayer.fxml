@@ -5,19 +5,19 @@
 <?import javafx.scene.layout.Pane?>
 <?import View.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="View.MazeDisplayerController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500" minWidth="-500"
+            xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="View.MazeView" onMouseClicked="#mouseClicked" onKeyPressed="#keyPressed">
     <top>
         <!-- content from TopBar.fxml included here -->
         <fx:include fx:id="TopBar" source="TopBar.fxml"/>
     </top>
     <bottom>
-        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
+        <HBox BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
-        <Pane prefHeight="490.0" prefWidth="699.0" BorderPane.alignment="CENTER">
-                <MazeCanvasDisplay fx:id="mazeCanvasDisplay" height="500.0" width="500.0" onKeyPressed="#keyPressed"/>
+        <Pane BorderPane.alignment="CENTER">
+            <MazeCanvasDisplay fx:id="mazeCanvasDisplay" height="600.0" width="600.0"/>
         </Pane>
     </center>
 </BorderPane>

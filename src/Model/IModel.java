@@ -14,5 +14,6 @@ public interface IModel {
     Solution getMazeSolution();
     void updatePlayerLocation(MovementDirection direction);
     Position getPlayerPosition();
+    void finishGame();
     //TODO: add properties in the model (change theme)
 }

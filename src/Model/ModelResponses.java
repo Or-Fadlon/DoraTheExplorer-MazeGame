@@ -4,5 +4,6 @@ public enum ModelResponses {
     MazeGenerated,
     MazeSolved,
     MoveAllowed,
-    MoveNotAllowed
+    MoveNotAllowed,
+    Finish
 }
