@@ -4,6 +4,7 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.Solution;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -11,10 +12,12 @@ import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 
-public class MazeCanvasDisplay extends Canvas {
+public class MazeCanvasDisplay extends Canvas implements Initializable {
     private final Color playerColor = Color.CYAN;
     private final Color wallColor = Color.RED;
     private final Color goalColor = Color.GREEN;
@@ -26,6 +29,11 @@ public class MazeCanvasDisplay extends Canvas {
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.requestFocus();
+    }
 
     private void draw() {
         if (maze != null) {
@@ -169,8 +177,8 @@ public class MazeCanvasDisplay extends Canvas {
         draw();
     }
 
-
     public void setSolution(Solution solution) {
         this.solution = solution;
     }
+
 }

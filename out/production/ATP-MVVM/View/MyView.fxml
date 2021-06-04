@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -12,49 +10,38 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="395.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.MyViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0"
+            prefWidth="395.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="View.MyViewController">
     <top>
-        <MenuBar BorderPane.alignment="CENTER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Load" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Options">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Properties" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Exit" />
-                <Menu mnemonicParsing="false" text="Help" />
-                <Menu mnemonicParsing="false" text="About" />
-            </menus>
-        </MenuBar>
+        <!-- content from TopBar.fxml included here -->
+        <fx:include fx:id="TopBar" source="TopBar.fxml"/>
     </top>
     <bottom>
-        <HBox prefHeight="20.0" prefWidth="395.0" BorderPane.alignment="CENTER" />
+        <HBox BorderPane.alignment="CENTER"/>
     </bottom>
     <center>
         <GridPane BorderPane.alignment="CENTER">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" />
-                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
-                <RowConstraints vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
+                <RowConstraints vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Label text="Maze Rows:" />
-                <Label text="Maze Cols:" GridPane.rowIndex="1" />
-                <TextField fx:id="textFieldMazeRows" text="30" GridPane.columnIndex="1" />
-                <TextField fx:id="textFieldMazeColumns" text="30" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                <Button mnemonicParsing="false" onAction="#generateMazeButton" text="Generate Maze" GridPane.rowIndex="2" />
+                <Label text="Maze Rows:"/>
+                <Label text="Maze Cols:" GridPane.rowIndex="1"/>
+                <TextField fx:id="textFieldMazeRows" text="5" GridPane.columnIndex="1"/>
+                <TextField fx:id="textFieldMazeColumns" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <Button mnemonicParsing="false" onAction="#generateMazeButton" text="Generate Maze"
+                        GridPane.rowIndex="2"/>
             </children>
+            <BorderPane.margin>
+                <Insets left="15.0" right="15.0"/>
+            </BorderPane.margin>
         </GridPane>
     </center>
 </BorderPane>

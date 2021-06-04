@@ -29,7 +29,6 @@ public class MazeView implements Initializable, Observer {
         IModel model = new MyModel();
         this.myViewModel = new MyViewModel(model);
         this.myViewModel.addObserver(this);
-        mazeCanvasDisplay.requestFocus();
     }
 
     @Override

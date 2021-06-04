@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ATP-MVVM.iml" filepath="$PROJECT_DIR$/ATP-MVVM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ATP-Project--MVVM.iml" filepath="$PROJECT_DIR$/ATP-Project--MVVM.iml" />
     </modules>
   </component>
 </project>
