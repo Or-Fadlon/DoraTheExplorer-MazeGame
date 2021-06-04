@@ -6,7 +6,6 @@ import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Position;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;

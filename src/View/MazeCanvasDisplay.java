@@ -89,65 +89,65 @@ public class MazeCanvasDisplay extends Canvas {
             double canvasHeight = getHeight();
             double canvasWidth = getWidth();
 
-            double cellHeight = canvasHeight / this.maze.getRowsSize();
-            double cellWidth = canvasWidth / this.maze.getColumnsSize();
-            cellHeight = Math.min(Math.min(cellHeight, cellWidth),100);
-            cellWidth = Math.min(cellHeight, cellWidth);
+            double cellSize = Math.min(canvasHeight / this.maze.getRowsSize(), canvasWidth / this.maze.getColumnsSize());
+            cellSize = Math.min(cellSize, 100);
             GraphicsContext graphicsContext = getGraphicsContext2D();
             //clear the canvas:
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
-            this.drawMazeWalls(graphicsContext, cellHeight, cellWidth);
-            this.drawSolution(graphicsContext, cellHeight, cellWidth);
-            this.drawGoal(graphicsContext, cellHeight, cellWidth);
-            this.drawPlayer(graphicsContext, cellHeight, cellWidth);
+            this.drawMazeWalls(graphicsContext, cellSize);
+            this.drawSolution(graphicsContext, cellSize);
+            this.drawGoal(graphicsContext, cellSize);
+            this.drawPlayer(graphicsContext, cellSize);
         }
     }
 
-    private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+    private void drawMazeWalls(GraphicsContext graphicsContext, double cellSize) {
         graphicsContext.setFill(this.wallColor);
 
-        for (int i = 0; i < this.maze.getRowsSize(); i++) {
-            for (int j = 0; j < this.maze.getColumnsSize(); j++) {
-                if (this.maze.positionOfWall(new Position(i, j))) {
+        int rowSize = this.maze.getRowsSize();
+        int colSize = this.maze.getColumnsSize();
+        for (int i = -1; i <= rowSize; i++) {
+            for (int j = -1; j <= colSize; j++) {
+                if (this.maze.positionOfWall(new Position(i, j)) || i == -1 || i == rowSize || j == -1 || j == colSize) {
                     //if it is a wall:
-                    double x = j * cellWidth;
-                    double y = i * cellHeight;
+                    double x = j * cellSize;
+                    double y = i * cellSize;
                     if (this.wallImage == null)
-                        graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+                        graphicsContext.fillRect(x, y, cellSize, cellSize);
                     else
-                        graphicsContext.drawImage(this.wallImage, x, y, cellWidth, cellHeight);
+                        graphicsContext.drawImage(this.wallImage, x, y, cellSize, cellSize);
                 }
             }
         }
     }
 
-    private void drawGoal(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+    private void drawGoal(GraphicsContext graphicsContext, double cellSize) {
         graphicsContext.setFill(this.goalColor);
 
         Position goalPosition = this.maze.getGoalPosition();
-        double x = goalPosition.getColumnIndex() * cellWidth;
-        double y = goalPosition.getRowIndex() * cellHeight;
+        double x = goalPosition.getColumnIndex() * cellSize;
+        double y = goalPosition.getRowIndex() * cellSize;
 
         if (this.goalImage == null)
-            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            graphicsContext.fillRect(x, y, cellSize, cellSize);
         else
-            graphicsContext.drawImage(this.goalImage, x, y, cellWidth, cellHeight);
+            graphicsContext.drawImage(this.goalImage, x, y, cellSize, cellSize);
     }
 
-    private void drawPlayer(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+    private void drawPlayer(GraphicsContext graphicsContext, double cellSize) {
         graphicsContext.setFill(this.playerColor);
 
-        double x = getPlayerCol() * cellWidth;
-        double y = getPlayerRow() * cellHeight;
+        double x = getPlayerCol() * cellSize;
+        double y = getPlayerRow() * cellSize;
 
         if (this.playerImage == null)
-            graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+            graphicsContext.fillRect(x, y, cellSize, cellSize);
         else
-            graphicsContext.drawImage(this.playerImage, x, y, cellWidth, cellHeight);
+            graphicsContext.drawImage(this.playerImage, x, y, cellSize, cellSize);
     }
 
-    private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
+    private void drawSolution(GraphicsContext graphicsContext, double cellSize) {
         if (this.solution == null)
             return;
 
@@ -162,12 +162,12 @@ public class MazeCanvasDisplay extends Canvas {
                 tempPosition = new Position(i, j);
                 if (pathHashMap.contains(tempPosition) && !tempPosition.equals(goalPosition)) {
                     //if it is a wall:
-                    double x = j * cellWidth;
-                    double y = i * cellHeight;
+                    double x = j * cellSize;
+                    double y = i * cellSize;
                     if (this.solutionImage == null)
-                        graphicsContext.fillRect(x, y, cellWidth, cellHeight);
+                        graphicsContext.fillRect(x, y, cellSize, cellSize);
                     else
-                        graphicsContext.drawImage(this.solutionImage, x, y, cellWidth, cellHeight);
+                        graphicsContext.drawImage(this.solutionImage, x, y, cellSize, cellSize);
                 }
             }
         }
@@ -181,7 +181,7 @@ public class MazeCanvasDisplay extends Canvas {
         return pathHashMap;
     }
 
-    public void resizeHandle(){
+    public void resizeHandle() {
         draw();
     }
 
