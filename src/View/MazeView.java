@@ -11,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -21,14 +22,17 @@ import java.util.ResourceBundle;
 
 public class MazeView implements Initializable, Observer {
     public MazeCanvasDisplay mazeCanvasDisplay;
+
+    public BorderPane borderPane;
     public MenuBar TopBar;
     private MyViewModel myViewModel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        IModel model = new MyModel();
+        MyModel model = new MyModel();
         this.myViewModel = new MyViewModel(model);
         this.myViewModel.addObserver(this);
+
     }
 
     @Override
@@ -59,15 +63,26 @@ public class MazeView implements Initializable, Observer {
         alert.setContentText("Solving maze...");
         alert.show();
         this.myViewModel.solveMaze();
+        alert.hide();
     }
 
-    private void openFile(ActionEvent actionEvent) {
+    private void saveMaze(ActionEvent actionEvent) {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save maze");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
+        fc.setInitialDirectory(new File("./resources"));
+        File chosen = fc.showSaveDialog(null);
+        if (chosen != null)
+            this.myViewModel.loadMaze(chosen);
+    }
+
+    private void loadMaze(ActionEvent actionEvent) {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
         fc.setInitialDirectory(new File("./resources"));
         File chosen = fc.showOpenDialog(null);
-        //...
+        this.myViewModel.loadMaze(chosen);
     }
 
     public void setPlayerPosition(Position position) {
@@ -79,7 +94,6 @@ public class MazeView implements Initializable, Observer {
         //TODO: smother move with speed (see older games)
         keyEvent.consume();
     }
-
 
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeCanvasDisplay.requestFocus();

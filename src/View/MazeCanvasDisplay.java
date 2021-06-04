@@ -21,10 +21,11 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
     private final Color playerColor = Color.CYAN;
     private final Color wallColor = Color.RED;
     private final Color goalColor = Color.GREEN;
-    private final Color solutionColor = Color.WHITE;
+    private final Color solutionColor = Color.GOLD;
     // wall and player path images:
     private String playerImage = "./resources/Images/Mario/player.png";
     private String wallImage = "./resources/Images/Mario/wall.png";
+    private String solutionImage = "./resources/Images/Mario/solution.png";
     private String goalImage = "./resources/Images/Mario/goal.png";
     private Maze maze;
     private Solution solution = null;
@@ -122,24 +123,27 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
 
         graphicsContext.setFill(this.solutionColor);
 
-        Image wallImage = null;
-        //TODO: Solution image
-//        try {
-//            wallImage = new Image(new FileInputStream(this.wallImage));
-//        } catch (FileNotFoundException e) {
-//            System.out.println("There is no wall image file");
-//        }
+        Image solutionImage = null;
+        try {
+            solutionImage = new Image(new FileInputStream(this.solutionImage));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no wall image file");
+        }
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
+
+        Position goalPosition = this.maze.getGoalPosition();
+        Position tempPosition = null;
         for (int i = 0; i < this.maze.getRowsSize(); i++) {
             for (int j = 0; j < this.maze.getColumnsSize(); j++) {
-                if (pathHashMap.contains(new Position(i, j))) {
+                tempPosition = new Position(i, j);
+                if (pathHashMap.contains(tempPosition) && !tempPosition.equals(goalPosition)) {
                     //if it is a wall:
                     double x = j * cellWidth;
                     double y = i * cellHeight;
                     if (wallImage == null)
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
-                        graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);
+                        graphicsContext.drawImage(solutionImage, x, y, cellWidth, cellHeight);
                 }
             }
         }
@@ -179,6 +183,7 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
 
     public void setSolution(Solution solution) {
         this.solution = solution;
+        draw();
     }
 
 }

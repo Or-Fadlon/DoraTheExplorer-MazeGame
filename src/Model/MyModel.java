@@ -4,8 +4,12 @@ import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.mazeGenerators.Position;
+import algorithms.search.BestFirstSearch;
+import algorithms.search.ISearchingAlgorithm;
+import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,9 +18,11 @@ public class MyModel extends Observable implements IModel {
     private Solution solution;
     private Position playerPosition;
     private IMazeGenerator mazeGenerator;
+    private ISearchingAlgorithm searchingAlgorithm;
 
     public MyModel() {
         this.mazeGenerator = new MyMazeGenerator();
+        this.searchingAlgorithm = new BestFirstSearch();
     }
 
     @Override
@@ -41,6 +47,7 @@ public class MyModel extends Observable implements IModel {
     @Override
     public void solveMaze() {
         //TODO: call the server!!
+        solution = this.searchingAlgorithm.solve(new SearchableMaze(this.maze));
         setChanged();
         notifyObservers(ModelResponses.MazeSolved);
     }
@@ -88,5 +95,13 @@ public class MyModel extends Observable implements IModel {
     @Override
     public Position getPlayerPosition() {
         return this.playerPosition;
+    }
+
+    public void saveMaze(String path){
+        //TODO
+    }
+
+    public void loadMaze(File chose) {
+        //TODO
     }
 }

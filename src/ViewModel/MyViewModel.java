@@ -2,18 +2,20 @@ package ViewModel;
 
 import Model.IModel;
 import Model.MovementDirection;
+import Model.MyModel;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
 
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MyViewModel extends Observable implements Observer {
-    private IModel model;
+    private MyModel model;
 
-    public MyViewModel(IModel model) {
+    public MyViewModel(MyModel model) {
         this.model = model;
         this.model.assignObserver(this);
     }
@@ -60,5 +62,9 @@ public class MyViewModel extends Observable implements Observer {
 
     public Position getPlayerPosition() {
         return this.model.getPlayerPosition();
+    }
+
+    public void loadMaze(File chosen){
+        this.model.loadMaze(chosen);
     }
 }
