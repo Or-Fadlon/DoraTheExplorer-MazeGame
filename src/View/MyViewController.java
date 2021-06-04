@@ -30,7 +30,6 @@ public class MyViewController implements IView {
         int rows = Integer.parseInt(textFieldMazeRows.getText());
         int cols = Integer.parseInt(textFieldMazeColumns.getText());
         MazeView mazeView = loader.getController();
-        mazeView.generateNewMaze(rows, cols);
 
         stage = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
         scene = new Scene(root);
@@ -42,5 +41,6 @@ public class MyViewController implements IView {
 //        });
         stage.setScene(scene);
         stage.show();
+        mazeView.generateNewMaze(rows, cols);
     }
 }

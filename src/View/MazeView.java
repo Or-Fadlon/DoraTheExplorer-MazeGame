@@ -6,6 +6,7 @@ import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Position;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
@@ -23,7 +24,6 @@ import java.util.ResourceBundle;
 
 public class MazeView implements Initializable, Observer {
     public MazeCanvasDisplay mazeCanvasDisplay;
-
     public BorderPane borderPane;
     public MenuBar TopBar;
     private MyViewModel myViewModel;
@@ -35,19 +35,31 @@ public class MazeView implements Initializable, Observer {
         this.myViewModel.addObserver(this);
     }
 
+    public void addResizeListener() {
+        this.borderPane.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.mazeCanvasDisplay.setWidth((double) newVal); //TODO: handle min size
+            this.mazeCanvasDisplay.resizeHandle();
+        });
+        this.borderPane.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.mazeCanvasDisplay.setHeight((double) newVal); //TODO: handle min size
+            this.mazeCanvasDisplay.resizeHandle();
+        });
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         switch ((ModelResponses) arg) {
             case MazeGenerated, MazeLoaded -> this.mazeCanvasDisplay.drawNewMaze(this.myViewModel.getMaze(), this.myViewModel.getPlayerPosition());
             case MazeSolved -> this.mazeCanvasDisplay.setSolution(this.myViewModel.getMazeSolution());
             case MoveAllowed -> this.mazeCanvasDisplay.setPlayerPosition(this.myViewModel.getPlayerPosition());
-            case MoveNotAllowed -> mazeCanvasDisplay.wallHit();
+            case MoveNotAllowed -> this.mazeCanvasDisplay.wallHit();
             case Finish -> this.finishGame();
         }
     }
 
     public void generateNewMaze(int rows, int cols) {
         this.myViewModel.generateMaze(rows, cols);
+        this.addResizeListener();//TODO: We need to move it!!
         //TODO: UPDATE DRAW
         //mazeCanvasDisplay.drawNewMaze(maze);
     }

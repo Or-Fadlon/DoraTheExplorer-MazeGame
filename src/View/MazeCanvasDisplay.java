@@ -84,7 +84,6 @@ public class MazeCanvasDisplay extends Canvas {
 
     }
 
-
     private void draw() {
         if (maze != null) {
             double canvasHeight = getHeight();
@@ -92,7 +91,8 @@ public class MazeCanvasDisplay extends Canvas {
 
             double cellHeight = canvasHeight / this.maze.getRowsSize();
             double cellWidth = canvasWidth / this.maze.getColumnsSize();
-
+            cellHeight = Math.min(Math.min(cellHeight, cellWidth),100);
+            cellWidth = Math.min(cellHeight, cellWidth);
             GraphicsContext graphicsContext = getGraphicsContext2D();
             //clear the canvas:
             graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -179,6 +179,10 @@ public class MazeCanvasDisplay extends Canvas {
         for (int i = 0; i < list.size(); i++)
             pathHashMap.add((Position) list.get(i).getCurrentState());
         return pathHashMap;
+    }
+
+    public void resizeHandle(){
+        draw();
     }
 
     public void drawNewMaze(Maze maze, Position playerPosition) {
