@@ -24,7 +24,7 @@
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="ATP-Project" level="project" />
     <orderEntry type="library" name="javafx-swt" level="project" />
+    <orderEntry type="library" name="ATP-Project1" level="project" />
   </component>
 </module>
