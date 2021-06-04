@@ -93,7 +93,7 @@ public class MyModel extends Observable implements IModel {
     public void finishGame() {
         setChanged();
         notifyObservers(ModelResponses.Finish);
-        //TODO: how to finish?
+        //TODO: how to goal?
     }
 
     @Override

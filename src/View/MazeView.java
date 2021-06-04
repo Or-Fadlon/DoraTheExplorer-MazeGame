@@ -33,7 +33,6 @@ public class MazeView implements Initializable, Observer {
         MyModel model = new MyModel();
         this.myViewModel = new MyViewModel(model);
         this.myViewModel.addObserver(this);
-
     }
 
     @Override
@@ -42,7 +41,7 @@ public class MazeView implements Initializable, Observer {
             case MazeGenerated, MazeLoaded -> this.mazeCanvasDisplay.drawNewMaze(this.myViewModel.getMaze(), this.myViewModel.getPlayerPosition());
             case MazeSolved -> this.mazeCanvasDisplay.setSolution(this.myViewModel.getMazeSolution());
             case MoveAllowed -> this.mazeCanvasDisplay.setPlayerPosition(this.myViewModel.getPlayerPosition());
-//            case MoveNotAllowed -> //TODO:Make Sound;
+            case MoveNotAllowed -> mazeCanvasDisplay.wallHit();
             case Finish -> this.finishGame();
         }
     }
@@ -54,6 +53,7 @@ public class MazeView implements Initializable, Observer {
     }
 
     private void finishGame() {
+        this.mazeCanvasDisplay.finish();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Finish!");
         alert.show();

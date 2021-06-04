@@ -4,37 +4,86 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
 import algorithms.search.Solution;
-import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.ResourceBundle;
 
-public class MazeCanvasDisplay extends Canvas implements Initializable {
+public class MazeCanvasDisplay extends Canvas {
     private final Color playerColor = Color.CYAN;
     private final Color wallColor = Color.RED;
     private final Color goalColor = Color.GREEN;
     private final Color solutionColor = Color.GOLD;
     // wall and player path images:
-    private String playerImage = "./resources/Images/Mario/player.png";
-    private String wallImage = "./resources/Images/Mario/wall.png";
-    private String solutionImage = "./resources/Images/Mario/solution.png";
-    private String goalImage = "./resources/Images/Mario/goal.png";
+    private Image playerImage, wallImage, solutionImage, goalImage;
+    private AudioClip startAudio, wallAudio, goalAudio;
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    public MazeCanvasDisplay() {
+        this.LoadRes();
         this.requestFocus();
     }
+
+
+    public void LoadRes() {
+        this.LoadRes("Mario");
+    }
+
+    public void LoadRes(String theme) {
+        LoadImages(theme);
+//        LoadSound(theme);//TODO: AUDIO
+    }
+
+    private void LoadImages(String theme) {
+        String prefix = "./resources/Themes/" + theme + "/Images/";
+
+        try {
+            this.playerImage = new Image(new FileInputStream(prefix + "player.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no " + theme + " player image file");
+        }
+
+        try {
+            this.wallImage = new Image(new FileInputStream(prefix + "wall.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no " + theme + " wall image file");
+        }
+
+        try {
+            this.solutionImage = new Image(new FileInputStream(prefix + "solution.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no " + theme + " solution image file");
+        }
+
+        try {
+            this.goalImage = new Image(new FileInputStream(prefix + "goal.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("There is no " + theme + " goal image file");
+        }
+    }
+
+    private void LoadSound(String theme) {
+        String path = getClass().getResource("/Themes/" + theme + "/Sound/test.mp3").toString();
+        this.startAudio = new AudioClip(path);
+        path = getClass().getResource("/Themes/" + theme + "/Sound/hitWall.wav").toString();
+        this.wallAudio = new AudioClip(path);
+        path = getClass().getResource("/Themes/" + theme + "/Sound/goal.wav").toString();
+        this.goalAudio = new AudioClip(path);
+
+    }
+
 
     private void draw() {
         if (maze != null) {
@@ -58,23 +107,16 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
         graphicsContext.setFill(this.wallColor);
 
-        Image wallImage = null;
-        try {
-            wallImage = new Image(new FileInputStream(this.wallImage));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no wall image file");
-        }
-
         for (int i = 0; i < this.maze.getRowsSize(); i++) {
             for (int j = 0; j < this.maze.getColumnsSize(); j++) {
-                if (maze.positionOfWall(new Position(i, j))) {
+                if (this.maze.positionOfWall(new Position(i, j))) {
                     //if it is a wall:
                     double x = j * cellWidth;
                     double y = i * cellHeight;
-                    if (wallImage == null)
+                    if (this.wallImage == null)
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
-                        graphicsContext.drawImage(wallImage, x, y, cellWidth, cellHeight);
+                        graphicsContext.drawImage(this.wallImage, x, y, cellWidth, cellHeight);
                 }
             }
         }
@@ -87,16 +129,10 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
         double x = goalPosition.getColumnIndex() * cellWidth;
         double y = goalPosition.getRowIndex() * cellHeight;
 
-        Image goalImage = null;
-        try {
-            goalImage = new Image(new FileInputStream(this.goalImage));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no goal image file");
-        }
-        if (goalImage == null)
+        if (this.goalImage == null)
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
-            graphicsContext.drawImage(goalImage, x, y, cellWidth, cellHeight);
+            graphicsContext.drawImage(this.goalImage, x, y, cellWidth, cellHeight);
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
@@ -105,16 +141,10 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
         double x = getPlayerCol() * cellWidth;
         double y = getPlayerRow() * cellHeight;
 
-        Image playerImage = null;
-        try {
-            playerImage = new Image(new FileInputStream(this.playerImage));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no player image file");
-        }
-        if (playerImage == null)
+        if (this.playerImage == null)
             graphicsContext.fillRect(x, y, cellWidth, cellHeight);
         else
-            graphicsContext.drawImage(playerImage, x, y, cellWidth, cellHeight);
+            graphicsContext.drawImage(this.playerImage, x, y, cellWidth, cellHeight);
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellHeight, double cellWidth) {
@@ -123,12 +153,6 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
 
         graphicsContext.setFill(this.solutionColor);
 
-        Image solutionImage = null;
-        try {
-            solutionImage = new Image(new FileInputStream(this.solutionImage));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no wall image file");
-        }
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
 
         Position goalPosition = this.maze.getGoalPosition();
@@ -140,10 +164,10 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
                     //if it is a wall:
                     double x = j * cellWidth;
                     double y = i * cellHeight;
-                    if (wallImage == null)
+                    if (this.solutionImage == null)
                         graphicsContext.fillRect(x, y, cellWidth, cellHeight);
                     else
-                        graphicsContext.drawImage(solutionImage, x, y, cellWidth, cellHeight);
+                        graphicsContext.drawImage(this.solutionImage, x, y, cellWidth, cellHeight);
                 }
             }
         }
@@ -161,11 +185,7 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
         this.maze = maze;
         this.playerPosition = playerPosition;
         this.draw();
-    }
-
-    public void playerMoved(Position newPosition) {
-        this.playerPosition = newPosition;
-        draw();
+//        this.startAudio.play(); //TODO: AUDIO
     }
 
     public int getPlayerRow() {
@@ -184,6 +204,16 @@ public class MazeCanvasDisplay extends Canvas implements Initializable {
     public void setSolution(Solution solution) {
         this.solution = solution;
         draw();
+    }
+
+    public void finish() {
+//        if (this.goalAudio != null)
+//            this.goalAudio.play();//TODO: AUDIO
+    }
+
+    public void wallHit() {
+//        if (this.wallAudio != null)
+//            this.wallAudio.play();//TODO: AUDIO
     }
 
 }
