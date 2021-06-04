@@ -67,4 +67,7 @@ public class MyViewModel extends Observable implements Observer {
     public void loadMaze(File chosen){
         this.model.loadMaze(chosen);
     }
+    public void saveMaze(File chosen){
+        this.model.saveMaze(chosen);
+    }
 }

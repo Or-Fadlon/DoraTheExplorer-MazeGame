@@ -9,7 +9,7 @@ import algorithms.search.ISearchingAlgorithm;
 import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
-import java.io.File;
+import java.io.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -30,11 +30,15 @@ public class MyModel extends Observable implements IModel {
         this.addObserver(Observer);
     }
 
+    private void setMaze(Maze maze) {
+        this.maze = maze;
+        this.playerPosition = this.maze.getStartPosition();
+    }
+
     @Override
     public void generateMaze(int rows, int cols) {
         //TODO: call the server!!
-        this.maze = mazeGenerator.generate(rows, cols);
-        this.playerPosition = this.maze.getStartPosition();
+        this.setMaze(mazeGenerator.generate(rows, cols));
         setChanged();
         notifyObservers(ModelResponses.MazeGenerated);
     }
@@ -97,11 +101,24 @@ public class MyModel extends Observable implements IModel {
         return this.playerPosition;
     }
 
-    public void saveMaze(String path){
-        //TODO
+    public void saveMaze(File chosen){
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(chosen))){
+            out.writeObject(this.maze);
+        } catch (IOException e) {
+            System.out.println("Maze haven't saved");
+        }
     }
 
-    public void loadMaze(File chose) {
-        //TODO
+    public void loadMaze(File chosen) {
+        Maze tempMaze = null;
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(chosen))){
+            tempMaze = (Maze)in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Maze not allowed");
+            return;
+        }
+        this.setMaze(tempMaze);
+        setChanged();
+        notifyObservers(ModelResponses.MazeLoaded);
     }
 }

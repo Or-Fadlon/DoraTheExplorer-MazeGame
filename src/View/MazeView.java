@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -38,7 +39,7 @@ public class MazeView implements Initializable, Observer {
     @Override
     public void update(Observable o, Object arg) {
         switch ((ModelResponses) arg) {
-            case MazeGenerated -> this.mazeCanvasDisplay.drawNewMaze(this.myViewModel.getMaze(), this.myViewModel.getPlayerPosition());
+            case MazeGenerated, MazeLoaded -> this.mazeCanvasDisplay.drawNewMaze(this.myViewModel.getMaze(), this.myViewModel.getPlayerPosition());
             case MazeSolved -> this.mazeCanvasDisplay.setSolution(this.myViewModel.getMazeSolution());
             case MoveAllowed -> this.mazeCanvasDisplay.setPlayerPosition(this.myViewModel.getPlayerPosition());
 //            case MoveNotAllowed -> //TODO:Make Sound;
@@ -73,7 +74,7 @@ public class MazeView implements Initializable, Observer {
         fc.setInitialDirectory(new File("./resources"));
         File chosen = fc.showSaveDialog(null);
         if (chosen != null)
-            this.myViewModel.loadMaze(chosen);
+            this.myViewModel.saveMaze(chosen);
     }
 
     private void loadMaze(ActionEvent actionEvent) {
@@ -90,7 +91,14 @@ public class MazeView implements Initializable, Observer {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        this.myViewModel.movePlayer(keyEvent);
+        if (keyEvent.getCode() == KeyCode.S)
+            this.myViewModel.solveMaze();
+        else if (keyEvent.getCode() == KeyCode.L) //TODO: remove
+            this.loadMaze(new ActionEvent());
+        else if (keyEvent.getCode() == KeyCode.K) //TODO: remove
+            this.saveMaze(new ActionEvent());
+        else
+            this.myViewModel.movePlayer(keyEvent);
         //TODO: smother move with speed (see older games)
         keyEvent.consume();
     }
