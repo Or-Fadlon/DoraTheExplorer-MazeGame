@@ -29,6 +29,7 @@ public class MazeCanvasDisplay extends Canvas {
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
+    private Camera camera;
 
 
     public MazeCanvasDisplay() {
@@ -92,18 +93,25 @@ public class MazeCanvasDisplay extends Canvas {
             double cellSize = Math.min(canvasHeight / this.maze.getRowsSize(), canvasWidth / this.maze.getColumnsSize());
             cellSize = Math.min(cellSize, 100);
             GraphicsContext graphicsContext = getGraphicsContext2D();
-            //clear the canvas:
-            graphicsContext.clearRect(0, 0, canvasWidth, canvasHeight);
 
+            //////////////////////////////////////////
+            graphicsContext.setFill(Color.BEIGE);
+            graphicsContext.fillRect(0, 0, this.getWidth(), this.getHeight());
+
+            graphicsContext.translate(camera.getX(), camera.getY());
+            //clear the canvas:
+
+            //TODO: avoid smooth background
             this.drawMazeWalls(graphicsContext, cellSize);
             this.drawSolution(graphicsContext, cellSize);
             this.drawGoal(graphicsContext, cellSize);
             this.drawPlayer(graphicsContext, cellSize);
+            graphicsContext.translate(-camera.getX(), -camera.getY());
+            /////////////////////////////////////////
         }
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellSize) {
-        graphicsContext.setFill(this.wallColor);
 
         int rowSize = this.maze.getRowsSize();
         int colSize = this.maze.getColumnsSize();
@@ -115,43 +123,43 @@ public class MazeCanvasDisplay extends Canvas {
                     double y = i * cellSize;
                     if (this.wallImage == null)
                         graphicsContext.fillRect(x, y, cellSize, cellSize);
-                    else
+                    else {
+                        graphicsContext.setFill(this.wallColor);
                         graphicsContext.drawImage(this.wallImage, x, y, cellSize, cellSize);
+                    }
                 }
             }
         }
     }
 
     private void drawGoal(GraphicsContext graphicsContext, double cellSize) {
-        graphicsContext.setFill(this.goalColor);
-
         Position goalPosition = this.maze.getGoalPosition();
         double x = goalPosition.getColumnIndex() * cellSize;
         double y = goalPosition.getRowIndex() * cellSize;
 
         if (this.goalImage == null)
             graphicsContext.fillRect(x, y, cellSize, cellSize);
-        else
+        else {
+            graphicsContext.setFill(this.goalColor);
             graphicsContext.drawImage(this.goalImage, x, y, cellSize, cellSize);
+        }
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellSize) {
-        graphicsContext.setFill(this.playerColor);
-
         double x = getPlayerCol() * cellSize;
         double y = getPlayerRow() * cellSize;
 
         if (this.playerImage == null)
             graphicsContext.fillRect(x, y, cellSize, cellSize);
-        else
+        else {
+            graphicsContext.setFill(this.playerColor);
             graphicsContext.drawImage(this.playerImage, x, y, cellSize, cellSize);
+        }
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellSize) {
         if (this.solution == null)
             return;
-
-        graphicsContext.setFill(this.solutionColor);
 
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
 
@@ -166,8 +174,10 @@ public class MazeCanvasDisplay extends Canvas {
                     double y = i * cellSize;
                     if (this.solutionImage == null)
                         graphicsContext.fillRect(x, y, cellSize, cellSize);
-                    else
+                    else {
+                        graphicsContext.setFill(this.solutionColor);
                         graphicsContext.drawImage(this.solutionImage, x, y, cellSize, cellSize);
+                    }
                 }
             }
         }
@@ -182,12 +192,13 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void resizeHandle() {
+        this.updateCamera();
         draw();
     }
 
     public void drawNewMaze(Maze maze, Position playerPosition) {
         this.maze = maze;
-        this.playerPosition = playerPosition;
+        this.setPlayerPosition(playerPosition);
         this.draw();
 //        this.startAudio.play(); //TODO: AUDIO
     }
@@ -202,7 +213,16 @@ public class MazeCanvasDisplay extends Canvas {
 
     public void setPlayerPosition(Position position) {
         this.playerPosition = position;
+        this.updateCamera();
         draw();
+    }
+
+    private void updateCamera() {
+        if (this.camera == null)
+            this.camera = new Camera(this);
+        double scale = Math.min(this.getHeight() / this.maze.getRowsSize(), this.getWidth() / this.maze.getColumnsSize());
+        scale = Math.min(scale, 100);
+        this.camera.updateCamera(this.playerPosition, scale);
     }
 
     public void setSolution(Solution solution) {

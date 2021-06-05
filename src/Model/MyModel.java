@@ -1,9 +1,6 @@
 package Model;
 
-import algorithms.mazeGenerators.IMazeGenerator;
-import algorithms.mazeGenerators.Maze;
-import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.Position;
+import algorithms.mazeGenerators.*;
 import algorithms.search.BestFirstSearch;
 import algorithms.search.ISearchingAlgorithm;
 import algorithms.search.SearchableMaze;
@@ -21,7 +18,7 @@ public class MyModel extends Observable implements IModel {
     private ISearchingAlgorithm searchingAlgorithm;
 
     public MyModel() {
-        this.mazeGenerator = new MyMazeGenerator();
+        this.mazeGenerator = new EmptyMazeGenerator();//TODO: Change to MY Maze GENERATOR
         this.searchingAlgorithm = new BestFirstSearch();
     }
 

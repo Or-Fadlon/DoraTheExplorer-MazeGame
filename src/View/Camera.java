@@ -3,34 +3,37 @@ package View;
 import algorithms.mazeGenerators.Position;
 
 public class Camera {
-
-    Position playerPosition;
+    private MazeCanvasDisplay mazeCanvasDisplay;
     private double x, y;
-    public double rowSize, colSize;
 
-    public Camera(double rowSize, double colSize,Position playerPosition) {
-        this.rowSize = rowSize;
-        this.colSize = colSize;
-        this.playerPosition = playerPosition;
+
+    public Camera(MazeCanvasDisplay mazeCanvasDisplay) {
+        this.mazeCanvasDisplay = mazeCanvasDisplay;
         this.x = 0;
         this.y = 0;
     }
 
-    public void updateCamera() {
+    public void updateCamera(Position playerPosition, double scale) {
+        double windowHeight = this.mazeCanvasDisplay.getHeight();
+        double windowWidth = this.mazeCanvasDisplay.getWidth();
+
         try {
-            if (playerPosition.getColumnIndex() > this.colSize / 2)
-                this.x = -playerPosition.getColumnIndex() + this.rowSize / 2;
-            else
-                this.x = 0;
-            if (playerPosition.getRowIndex() > 3 * this.rowSize / 4)
-                this.y = -playerPosition.getRowIndex() + 3 * this.rowSize / 4;
-            else
-                this.y = 0;
+//            if (playerPosition.getColumnIndex() * scale > windowWidth / 2)
+//                this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
+//            else
+//                this.x = 1*scale;
+//            if (playerPosition.getRowIndex() * scale > windowHeight / 2)
+//                this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
+//            else
+//                this.y = 1*scale;
+            this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
+            this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
         } catch (Exception e) {
             System.out.println("No Player Found.....");
             this.x = 0;
             this.y = 0;
         }
+        System.out.format("cameraX:{%s} cameraY:{%s} \n", this.x, this.y);
     }
 
     public double getX() {
@@ -48,4 +51,5 @@ public class Camera {
     public void setY(float y) {
         this.y = y;
     }
+
 }

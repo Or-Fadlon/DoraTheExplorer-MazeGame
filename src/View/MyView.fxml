@@ -34,8 +34,8 @@
             <children>
                 <Label text="Maze Rows:"/>
                 <Label text="Maze Cols:" GridPane.rowIndex="1"/>
-                <TextField fx:id="textFieldMazeRows" text="5" GridPane.columnIndex="1"/>
-                <TextField fx:id="textFieldMazeColumns" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                <TextField fx:id="textFieldMazeRows" text="50" GridPane.columnIndex="1"/>
+                <TextField fx:id="textFieldMazeColumns" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <Button mnemonicParsing="false" onAction="#generateMazeButton" text="Generate Maze"
                         GridPane.rowIndex="2"/>
             </children>
