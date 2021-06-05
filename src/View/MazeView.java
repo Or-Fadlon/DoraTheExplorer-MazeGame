@@ -12,6 +12,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 
@@ -116,5 +117,17 @@ public class MazeView implements Initializable, Observer {
 
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeCanvasDisplay.requestFocus();
+    }
+
+    public void scrollHandle(ScrollEvent scrollEvent) {
+        if (scrollEvent.isControlDown()) {
+            double deltaY = scrollEvent.getDeltaY();
+            if (deltaY > 0)
+                this.mazeCanvasDisplay.zoom = this.mazeCanvasDisplay.getScale() < 100 ? this.mazeCanvasDisplay.zoom * 1.1 : this.mazeCanvasDisplay.zoom;
+            else
+                this.mazeCanvasDisplay.zoom = this.mazeCanvasDisplay.getScale() > 10 ? this.mazeCanvasDisplay.zoom / 1.1 : this.mazeCanvasDisplay.zoom;
+            this.mazeCanvasDisplay.resizeHandle();
+        }
+        scrollEvent.consume();
     }
 }

@@ -7,7 +7,8 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500" minWidth="500"
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="View.MazeView" onMouseClicked="#mouseClicked" onKeyPressed="#keyPressed" fx:id="borderPane">
+            fx:controller="View.MazeView" onMouseClicked="#mouseClicked" onKeyPressed="#keyPressed"
+            onScroll="#scrollHandle" fx:id="borderPane">
     <top>
         <!-- content from TopBar.fxml included here -->
         <fx:include fx:id="TopBar" source="TopBar.fxml"/>

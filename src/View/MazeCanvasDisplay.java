@@ -8,11 +8,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -29,6 +26,8 @@ public class MazeCanvasDisplay extends Canvas {
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
+    public double zoom = 1;
+    private double scale;
     private Camera camera;
 
 
@@ -87,25 +86,18 @@ public class MazeCanvasDisplay extends Canvas {
 
     private void draw() {
         if (maze != null) {
-            double canvasHeight = getHeight();
-            double canvasWidth = getWidth();
-
-            double cellSize = Math.min(canvasHeight / this.maze.getRowsSize(), canvasWidth / this.maze.getColumnsSize());
-            cellSize = Math.min(cellSize, 100);
             GraphicsContext graphicsContext = getGraphicsContext2D();
-
             //////////////////////////////////////////
+            //background color
             graphicsContext.setFill(Color.BEIGE);
             graphicsContext.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             graphicsContext.translate(camera.getX(), camera.getY());
-            //clear the canvas:
 
-            //TODO: avoid smooth background
-            this.drawMazeWalls(graphicsContext, cellSize);
-            this.drawSolution(graphicsContext, cellSize);
-            this.drawGoal(graphicsContext, cellSize);
-            this.drawPlayer(graphicsContext, cellSize);
+            this.drawMazeWalls(graphicsContext, this.scale);
+            this.drawSolution(graphicsContext, this.scale);
+            this.drawGoal(graphicsContext, this.scale);
+            this.drawPlayer(graphicsContext, this.scale);
             graphicsContext.translate(-camera.getX(), -camera.getY());
             /////////////////////////////////////////
         }
@@ -192,12 +184,24 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void resizeHandle() {
+        this.updateScale();
         this.updateCamera();
-        draw();
+        this.draw();
+    }
+
+    private void updateScale() {
+        double minSize = Math.min(this.getHeight() / this.maze.getRowsSize(), this.getWidth() / this.maze.getColumnsSize());
+        if (minSize <= 20)
+            this.scale = 20 * this.zoom;
+        else if (minSize >= 100)
+            this.scale = 100 * this.zoom;
+        else
+            this.scale = minSize * this.zoom;
     }
 
     public void drawNewMaze(Maze maze, Position playerPosition) {
         this.maze = maze;
+        this.updateScale();
         this.setPlayerPosition(playerPosition);
         this.draw();
 //        this.startAudio.play(); //TODO: AUDIO
@@ -214,20 +218,18 @@ public class MazeCanvasDisplay extends Canvas {
     public void setPlayerPosition(Position position) {
         this.playerPosition = position;
         this.updateCamera();
-        draw();
+        this.draw();
     }
 
     private void updateCamera() {
         if (this.camera == null)
             this.camera = new Camera(this);
-        double scale = Math.min(this.getHeight() / this.maze.getRowsSize(), this.getWidth() / this.maze.getColumnsSize());
-        scale = Math.min(scale, 100);
-        this.camera.updateCamera(this.playerPosition, scale);
+        this.camera.updateCamera(this.playerPosition, this.scale);
     }
 
     public void setSolution(Solution solution) {
         this.solution = solution;
-        draw();
+        this.draw();
     }
 
     public void finish() {
@@ -240,4 +242,7 @@ public class MazeCanvasDisplay extends Canvas {
 //            this.wallAudio.play();//TODO: AUDIO
     }
 
+    public double getScale() {
+        return this.scale;
+    }
 }
