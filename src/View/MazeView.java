@@ -36,6 +36,7 @@ public class MazeView implements Initializable, Observer {
     }
 
     public void addResizeListener() {
+        ((Stage)this.borderPane.getScene().getWindow()).setResizable(true);
         this.borderPane.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
             this.mazeCanvasDisplay.setWidth((double) newVal); //TODO: handle min size
             this.mazeCanvasDisplay.resizeHandle();

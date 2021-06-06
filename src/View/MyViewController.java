@@ -68,8 +68,8 @@ public class MyViewController implements IView {
 
     public void keyPressed(KeyEvent keyEvent) {
         switch ((keyEvent.getCode())) {
-            case NUMPAD8 -> this.changeUp();
-            case NUMPAD2 -> this.changeDown();
+            case NUMPAD8, UP -> this.changeUp();
+            case NUMPAD2, DOWN -> this.changeDown();
             case ENTER -> this.generateMazeButton(null);
         }
         keyEvent.consume();

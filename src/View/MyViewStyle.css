@@ -4,10 +4,11 @@
 
 Button {
     -fx-text-fill: white;
-    -fx-font-family: "Arial Narrow";
+    -fx-font-family: "Arial";
     -fx-font-weight: bold;
     -fx-background-color: linear-gradient(#61a2b1, #2A5058);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+    -fx-font-size: 30;
 }
 
 Button:hover {
@@ -20,19 +21,18 @@ Button:hover {
     -fx-content-display: LEFT;
 }
 
-.gameTitle {
-    -fx-font: Ariel;
+.gameTitle { /*Fadlon-Game*/
+    -fx-font-size: 70;
+
 }
 
-.selectArrow {
-    -fx-background-color: Red;
+.selectArrow { /* 🢂 */
+    -fx-font-size: 60;
 }
 
-.selectLabel {
-    -fx-alignment: center;
-    -fx-text-alignment: center;
-    -fx-font-size: 50;
-    -fx-background-color: BLUE;
+.selectLabel { /*Easy-Medium-Hard*/
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
 }
 
 .hide {
