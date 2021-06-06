@@ -1,41 +1,72 @@
 package Model;
 
+import Client.*;
+import IO.MyDecompressorInputStream;
+import Server.*;
 import algorithms.mazeGenerators.*;
-import algorithms.search.BestFirstSearch;
-import algorithms.search.ISearchingAlgorithm;
-import algorithms.search.SearchableMaze;
 import algorithms.search.Solution;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
 public class MyModel extends Observable implements IModel {
     private Maze maze;
-    private Solution solution;
+    private Solution mazeSolution;
     private Position playerPosition;
-    private IMazeGenerator mazeGenerator;
-    private ISearchingAlgorithm searchingAlgorithm;
+    private Server mazeGeneratorServer;
+    private Server mazeSolverServer;
+    private Client mazeGeneratorClient;
+    private Client mazeSolverClient;
+
 
     public MyModel() {
-        this.mazeGenerator = new EmptyMazeGenerator();//TODO: Change to MY Maze GENERATOR
-        this.searchingAlgorithm = new BestFirstSearch();
+        this.startServers();
     }
+
+    private void startServers() {
+        this.mazeGeneratorServer = new Server(5400, 2000, new ServerStrategyGenerateMaze());
+        this.mazeGeneratorServer.start();
+        this.mazeSolverServer = new Server(5401, 2000, new ServerStrategySolveSearchProblem());
+        this.mazeSolverServer.start();
+    }
+
 
     @Override
     public void assignObserver(Observer Observer) {
         this.addObserver(Observer);
     }
 
-    private void setMaze(Maze maze) {
-        this.maze = maze;
-        this.playerPosition = this.maze.getStartPosition();
-    }
-
     @Override
     public void generateMaze(int rows, int cols) {
-        //TODO: call the server!!
-        this.setMaze(mazeGenerator.generate(rows, cols));
+        try {
+            this.mazeGeneratorClient = new Client(InetAddress.getLocalHost(), 5400, new IClientStrategy() {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.flush();
+                        int[] mazeDimensions = new int[]{rows, cols};
+                        toServer.writeObject(mazeDimensions);
+                        toServer.flush();
+                        byte[] compressedMaze = (byte[]) fromServer.readObject();
+                        InputStream is = new MyDecompressorInputStream(new ByteArrayInputStream(compressedMaze));
+                        byte[] decompressedMaze = new byte[rows * cols + 12];
+                        is.read(decompressedMaze);
+                        setMaze(new Maze(decompressedMaze));
+                    } catch (Exception var10) {
+                        var10.printStackTrace();
+                    }
+                }
+            });
+            this.mazeGeneratorClient.communicateWithServer();
+        } catch (UnknownHostException e) {
+            System.out.println("cant create new mazeGeneratorClient..");
+            return;
+        }
         setChanged();
         notifyObservers(ModelResponses.MazeGenerated);
     }
@@ -45,17 +76,41 @@ public class MyModel extends Observable implements IModel {
         return this.maze;
     }
 
+    private void setMaze(Maze maze) {
+        this.maze = maze;
+        this.playerPosition = this.maze.getStartPosition();
+    }
+
     @Override
     public void solveMaze() {
-        //TODO: call the server!!
-        solution = this.searchingAlgorithm.solve(new SearchableMaze(this.maze));
+        try {
+            this.mazeSolverClient = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
+                public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
+                    try {
+                        ObjectOutputStream toServer = new ObjectOutputStream(outToServer);
+                        ObjectInputStream fromServer = new ObjectInputStream(inFromServer);
+                        toServer.writeObject(maze);
+                        toServer.flush();
+                        mazeSolution = (Solution) fromServer.readObject();
+                    } catch (Exception var9) {
+                        var9.printStackTrace();
+                    }
+                }
+            });
+        } catch (UnknownHostException e) {
+            System.out.println("cant create new mazeSolverClient..");
+            return;
+        }
+
+        this.mazeSolverClient.communicateWithServer();
+
         setChanged();
         notifyObservers(ModelResponses.MazeSolved);
     }
 
     @Override
     public Solution getMazeSolution() {
-        return this.solution;
+        return this.mazeSolution;
     }
 
     @Override
@@ -98,8 +153,8 @@ public class MyModel extends Observable implements IModel {
         return this.playerPosition;
     }
 
-    public void saveMaze(File chosen){
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(chosen))){
+    public void saveMaze(File chosen) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(chosen))) {
             out.writeObject(this.maze);
         } catch (IOException e) {
             System.out.println("Maze haven't saved");
@@ -108,8 +163,8 @@ public class MyModel extends Observable implements IModel {
 
     public void loadMaze(File chosen) {
         Maze tempMaze = null;
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(chosen))){
-            tempMaze = (Maze)in.readObject();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(chosen))) {
+            tempMaze = (Maze) in.readObject();
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("Maze not allowed");
             return;
