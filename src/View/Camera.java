@@ -3,6 +3,7 @@ package View;
 import algorithms.mazeGenerators.Position;
 
 public class Camera {
+    //TODO: add move camera option??
     private MazeCanvasDisplay mazeCanvasDisplay;
     private double x, y;
 

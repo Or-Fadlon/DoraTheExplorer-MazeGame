@@ -20,13 +20,13 @@ public class MazeCanvasDisplay extends Canvas {
     private final Color wallColor = Color.RED;
     private final Color goalColor = Color.GREEN;
     private final Color solutionColor = Color.GOLD;
+    public double zoom = 1;
     // wall and player path images:
     private Image playerImage, wallImage, solutionImage, goalImage;
     private AudioClip startAudio, wallAudio, goalAudio;
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
-    public double zoom = 1;
     private double scale;
     private Camera camera;
 
@@ -43,7 +43,7 @@ public class MazeCanvasDisplay extends Canvas {
 
     public void LoadRes(String theme) {
         LoadImages(theme);
-//        LoadSound(theme);//TODO: AUDIO
+        LoadSound(theme);
     }
 
     private void LoadImages(String theme) {
@@ -75,12 +75,26 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void LoadSound(String theme) {
-        String path = getClass().getResource("/Themes/" + theme + "/Sound/test.mp3").toString();
-        this.startAudio = new AudioClip(path);
-        path = getClass().getResource("/Themes/" + theme + "/Sound/hitWall.wav").toString();
-        this.wallAudio = new AudioClip(path);
-        path = getClass().getResource("/Themes/" + theme + "/Sound/goal.wav").toString();
-        this.goalAudio = new AudioClip(path);
+        String path;
+        try {
+            path = getClass().getResource("/Themes/" + theme + "/Sound/start.wav").toString();
+            this.startAudio = new AudioClip(path);
+        } catch (Exception e) {
+            System.out.println("Start sound not found");
+        }
+        try {
+            path = getClass().getResource("/Themes/" + theme + "/Sound/hitWall.wav").toString();
+            this.wallAudio = new AudioClip(path);
+        } catch (Exception e) {
+            System.out.println("Start sound not found");
+        }
+        try {
+            path = getClass().getResource("/Themes/" + theme + "/Sound/goal.wav").toString();
+            this.goalAudio = new AudioClip(path);
+
+        } catch (Exception e) {
+            System.out.println("Start sound not found");
+        }
 
     }
 
@@ -204,7 +218,8 @@ public class MazeCanvasDisplay extends Canvas {
         this.updateScale();
         this.setPlayerPosition(playerPosition);
         this.draw();
-//        this.startAudio.play(); //TODO: AUDIO
+        if (this.startAudio != null)
+            this.startAudio.play();
     }
 
     public int getPlayerRow() {
@@ -233,13 +248,13 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void finish() {
-//        if (this.goalAudio != null)
-//            this.goalAudio.play();//TODO: AUDIO
+        if (this.goalAudio != null)
+            this.goalAudio.play();
     }
 
     public void wallHit() {
-//        if (this.wallAudio != null)
-//            this.wallAudio.play();//TODO: AUDIO
+        if (this.wallAudio != null)
+            this.wallAudio.play();
     }
 
     public double getScale() {

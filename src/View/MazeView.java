@@ -115,6 +115,7 @@ public class MazeView implements Initializable, Observer {
         keyEvent.consume();
     }
 
+    //TODO: add move player using mouse
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeCanvasDisplay.requestFocus();
     }
