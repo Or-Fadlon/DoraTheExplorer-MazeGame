@@ -20,8 +20,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("../View/MyView.fxml")));
 //        primaryStage.getIcons().add(new Image("resources/Images/Icons/icon.png"));
         primaryStage.setTitle("ATP-Maze - Fadlon");
-        primaryStage.setResizable(true);
-
+        primaryStage.setResizable(false);
 //        primaryStage.setX(150);
 //        primaryStage.setY(150);
 //        primaryStage.setFullScreen(true);

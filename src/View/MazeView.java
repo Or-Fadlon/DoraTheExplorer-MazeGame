@@ -1,6 +1,5 @@
 package View;
 
-import Model.IModel;
 import Model.ModelResponses;
 import Model.MyModel;
 import ViewModel.MyViewModel;
@@ -15,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
@@ -46,6 +46,12 @@ public class MazeView implements Initializable, Observer {
         });
     }
 
+    private void addCloseProperties() {
+        this.mazeCanvasDisplay.getScene().getWindow().setOnCloseRequest(windowEvent -> {
+            this.myViewModel.exit();
+        });
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         switch ((ModelResponses) arg) {
@@ -60,15 +66,13 @@ public class MazeView implements Initializable, Observer {
     public void generateNewMaze(int rows, int cols) {
         this.myViewModel.generateMaze(rows, cols);
         this.addResizeListener();//TODO: We need to move it!!
+        this.addCloseProperties();//TODO: We need to move it!!
         //TODO: UPDATE DRAW
         //mazeCanvasDisplay.drawNewMaze(maze);
     }
 
     private void finishGame() {
         this.mazeCanvasDisplay.finish();
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setContentText("Finish!");
-        alert.show();
     }
 
     private void solveMaze(ActionEvent actionEvent) {
@@ -131,4 +135,5 @@ public class MazeView implements Initializable, Observer {
         }
         scrollEvent.consume();
     }
+
 }

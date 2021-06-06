@@ -64,10 +64,15 @@ public class MyViewModel extends Observable implements Observer {
         return this.model.getPlayerPosition();
     }
 
-    public void loadMaze(File chosen){
+    public void loadMaze(File chosen) {
         this.model.loadMaze(chosen);
     }
-    public void saveMaze(File chosen){
+
+    public void saveMaze(File chosen) {
         this.model.saveMaze(chosen);
+    }
+
+    public void exit(){
+        this.model.stopServers();
     }
 }

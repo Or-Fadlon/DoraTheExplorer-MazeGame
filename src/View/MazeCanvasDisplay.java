@@ -6,6 +6,7 @@ import algorithms.search.AState;
 import algorithms.search.Solution;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -127,12 +128,11 @@ public class MazeCanvasDisplay extends Canvas {
                     //if it is a wall:
                     double x = j * cellSize;
                     double y = i * cellSize;
-                    if (this.wallImage == null)
-                        graphicsContext.fillRect(x, y, cellSize, cellSize);
-                    else {
+                    if (this.wallImage == null) {
                         graphicsContext.setFill(this.wallColor);
+                        graphicsContext.fillRect(x, y, cellSize, cellSize);
+                    } else
                         graphicsContext.drawImage(this.wallImage, x, y, cellSize, cellSize);
-                    }
                 }
             }
         }
@@ -143,24 +143,23 @@ public class MazeCanvasDisplay extends Canvas {
         double x = goalPosition.getColumnIndex() * cellSize;
         double y = goalPosition.getRowIndex() * cellSize;
 
-        if (this.goalImage == null)
-            graphicsContext.fillRect(x, y, cellSize, cellSize);
-        else {
+        if (this.goalImage == null) {
             graphicsContext.setFill(this.goalColor);
+            graphicsContext.fillRect(x, y, cellSize, cellSize);
+        } else
             graphicsContext.drawImage(this.goalImage, x, y, cellSize, cellSize);
-        }
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellSize) {
         double x = getPlayerCol() * cellSize;
         double y = getPlayerRow() * cellSize;
 
-        if (this.playerImage == null)
-            graphicsContext.fillRect(x, y, cellSize, cellSize);
-        else {
+        if (this.playerImage == null) {
             graphicsContext.setFill(this.playerColor);
+            graphicsContext.fillRect(x, y, cellSize, cellSize);
+        } else
             graphicsContext.drawImage(this.playerImage, x, y, cellSize, cellSize);
-        }
+
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellSize) {
@@ -178,12 +177,12 @@ public class MazeCanvasDisplay extends Canvas {
                     //if it is a wall:
                     double x = j * cellSize;
                     double y = i * cellSize;
-                    if (this.solutionImage == null)
-                        graphicsContext.fillRect(x, y, cellSize, cellSize);
-                    else {
+                    if (this.solutionImage == null) {
                         graphicsContext.setFill(this.solutionColor);
+                        graphicsContext.fillRect(x, y, cellSize, cellSize);
+                    } else
                         graphicsContext.drawImage(this.solutionImage, x, y, cellSize, cellSize);
-                    }
+
                 }
             }
         }
@@ -250,6 +249,10 @@ public class MazeCanvasDisplay extends Canvas {
     public void finish() {
         if (this.goalAudio != null)
             this.goalAudio.play();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Finish!");
+        alert.show();
     }
 
     public void wallHit() {

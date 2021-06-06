@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0"
-            prefWidth="395.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="View.MyViewController">
-    <top>
-        <!-- content from TopBar.fxml included here -->
-        <fx:include fx:id="TopBar" source="TopBar.fxml"/>
-    </top>
-    <bottom>
-        <HBox BorderPane.alignment="CENTER"/>
-    </bottom>
-    <center>
-        <GridPane BorderPane.alignment="CENTER">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-                <RowConstraints vgrow="SOMETIMES"/>
-            </rowConstraints>
-            <children>
-                <Label text="Maze Rows:"/>
-                <Label text="Maze Cols:" GridPane.rowIndex="1"/>
-                <TextField fx:id="textFieldMazeRows" text="50" GridPane.columnIndex="1"/>
-                <TextField fx:id="textFieldMazeColumns" text="50" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-                <Button mnemonicParsing="false" onAction="#generateMazeButton" text="Generate Maze"
-                        GridPane.rowIndex="2"/>
-            </children>
-            <BorderPane.margin>
-                <Insets left="15.0" right="15.0"/>
-            </BorderPane.margin>
-        </GridPane>
-    </center>
-</BorderPane>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+          prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16"
+          fx:controller="View.MyViewController" stylesheets="@MyViewStyle.css" onKeyPressed="#keyPressed">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+        <ColumnConstraints hgrow="SOMETIMES"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+        <RowConstraints vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Label text="Fadlon - Game" styleClass="gameTitle" GridPane.columnIndex="1"/>
+        <Label text="Easy" styleClass="selectLabel" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Medium" styleClass="selectLabel" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Hard" styleClass="selectLabel" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+        <Button mnemonicParsing="false" onAction="#generateMazeButton" text="Start"
+                GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+        <Label fx:id="easyArrow" styleClass="selectArrow" text="▷" textAlignment="RIGHT" GridPane.rowIndex="1"/>
+        <Label fx:id="mediumArrow" style="visibility: hide" styleClass="selectArrow" text="▷" textAlignment="RIGHT"
+               GridPane.rowIndex="2"/>
+        <Label fx:id="hardArrow" style="visibility: hide" styleClass="selectArrow" text="▷" textAlignment="RIGHT"
+               GridPane.rowIndex="3"/>
+    </children>
+</GridPane>

@@ -9,7 +9,6 @@ import algorithms.search.Solution;
 import java.io.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -32,6 +31,13 @@ public class MyModel extends Observable implements IModel {
         this.mazeGeneratorServer.start();
         this.mazeSolverServer = new Server(5401, 2000, new ServerStrategySolveSearchProblem());
         this.mazeSolverServer.start();
+    }
+
+    public void stopServers() {
+        if (mazeGeneratorServer != null)
+            this.mazeGeneratorServer.stop();
+        if (mazeSolverServer != null)
+        this.mazeSolverServer.stop();
     }
 
 
@@ -57,8 +63,8 @@ public class MyModel extends Observable implements IModel {
                         byte[] decompressedMaze = new byte[rows * cols + 12];
                         is.read(decompressedMaze);
                         setMaze(new Maze(decompressedMaze));
-                    } catch (Exception var10) {
-                        var10.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println("Communication problem with the Maze-Generator server");
                     }
                 }
             });
@@ -92,8 +98,8 @@ public class MyModel extends Observable implements IModel {
                         toServer.writeObject(maze);
                         toServer.flush();
                         mazeSolution = (Solution) fromServer.readObject();
-                    } catch (Exception var9) {
-                        var9.printStackTrace();
+                    } catch (Exception e) {
+                        System.out.println("Communication problem with the Maze-Solver server");
                     }
                 }
             });
