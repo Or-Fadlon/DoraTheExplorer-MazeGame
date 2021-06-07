@@ -18,16 +18,16 @@ public class Camera {
         double windowHeight = this.mazeCanvasDisplay.getHeight();
         double windowWidth = this.mazeCanvasDisplay.getWidth();
         try {
-            if (playerPosition.getColumnIndex() * scale > windowWidth / 2)
-                this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
-            else
-                this.x = 1*scale;
-            if (playerPosition.getRowIndex() * scale > windowHeight / 2)
-                this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
-            else
-                this.y = 1*scale;
-//            this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
-//            this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
+//            if (playerPosition.getColumnIndex() * scale > windowWidth / 2)
+//                this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
+//            else
+//                this.x = 1*scale;
+//            if (playerPosition.getRowIndex() * scale > windowHeight / 2)
+//                this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
+//            else
+//                this.y = 1*scale;
+            this.x = -playerPosition.getColumnIndex() * scale + windowWidth / 2;
+            this.y = -playerPosition.getRowIndex() * scale + windowHeight / 2;
         } catch (Exception e) {
             System.out.println("No Player Found.....");
             this.x = 0;

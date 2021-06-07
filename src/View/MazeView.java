@@ -19,19 +19,19 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class MazeView implements Initializable, Observer {
+public class MazeView extends AView implements Initializable {
     public MazeCanvasDisplay mazeCanvasDisplay;
     public BorderPane borderPane;
     public MenuBar TopBar;
-    private MyViewModel myViewModel;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        MyModel model = new MyModel();
-        this.myViewModel = new MyViewModel(model);
+    }
+
+    public MazeView(){
+        this.myViewModel = new MyViewModel();
         this.myViewModel.addObserver(this);
     }
 
@@ -120,9 +120,38 @@ public class MazeView implements Initializable, Observer {
         keyEvent.consume();
     }
 
-    //TODO: add move player using mouse
     public void mouseClicked(MouseEvent mouseEvent) {
         mazeCanvasDisplay.requestFocus();
+    }
+
+
+    double mousePosX=0, mousePosY=0;
+    boolean startDrag = false;
+
+    public void mouseDragged(MouseEvent mouseEvent) {
+        if (this.startDrag) {
+            if (Math.abs(mouseEvent.getX() - mousePosX) >= this.mazeCanvasDisplay.getScale() ||
+                    Math.abs(mouseEvent.getY() - mousePosY) >= this.mazeCanvasDisplay.getScale()) {
+                myViewModel.movePlayer(mouseEvent, mousePosX, mousePosY);
+                mousePosX = mouseEvent.getX();
+                mousePosY = mouseEvent.getY();
+            }
+
+        }
+
+    }
+
+    public void dragDetected(MouseEvent mouseEvent) {
+        this.startDrag = true;
+        this.mousePosX = mouseEvent.getX();
+        this.mousePosY = mouseEvent.getY();
+    }
+
+    public void mouseReleased(MouseEvent mouseEvent) {
+        this.startDrag = false;
+        this.mousePosX = mouseEvent.getX();
+        this.mousePosY = mouseEvent.getY();
+        mouseEvent.consume();
     }
 
     public void scrollHandle(ScrollEvent scrollEvent) {

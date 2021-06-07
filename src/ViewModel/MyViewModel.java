@@ -7,6 +7,7 @@ import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.util.Observable;
@@ -15,8 +16,8 @@ import java.util.Observer;
 public class MyViewModel extends Observable implements Observer {
     private MyModel model;
 
-    public MyViewModel(MyModel model) {
-        this.model = model;
+    public MyViewModel() {
+        this.model = new MyModel();
         this.model.assignObserver(this);
     }
 
@@ -60,6 +61,17 @@ public class MyViewModel extends Observable implements Observer {
         this.model.updatePlayerLocation(direction);
     }
 
+    public void movePlayer(MouseEvent mouseEvent, double mousePosX, double mousePosY) {
+        if (mouseEvent.getY() <= mousePosY)
+            this.model.updatePlayerLocation(MovementDirection.UP);
+        else if (mouseEvent.getX() >= mousePosX)
+            this.model.updatePlayerLocation(MovementDirection.RIGHT);
+        else if (mouseEvent.getY() >= mousePosY)
+            this.model.updatePlayerLocation(MovementDirection.DOWN);
+        else if (mouseEvent.getX() <= mousePosX)
+            this.model.updatePlayerLocation(MovementDirection.LEFT);
+    }
+
     public Position getPlayerPosition() {
         return this.model.getPlayerPosition();
     }
@@ -72,7 +84,7 @@ public class MyViewModel extends Observable implements Observer {
         this.model.saveMaze(chosen);
     }
 
-    public void exit(){
+    public void exit() {
         this.model.stopServers();
     }
 }

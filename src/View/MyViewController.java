@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyViewController implements IView {
+public class MyViewController extends AView { //TODO: request focus!!!!!!
     public Label easyArrow;
     public Label mediumArrow;
     public Label hardArrow;

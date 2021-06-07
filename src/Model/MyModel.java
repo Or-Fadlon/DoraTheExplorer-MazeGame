@@ -121,6 +121,7 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
+        System.out.println(direction); //TODO: REMOVE
         Position newPosition;
         switch (direction) {
             case UP -> newPosition = this.playerPosition.getUpPosition(); //UP
