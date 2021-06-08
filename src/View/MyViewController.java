@@ -27,7 +27,7 @@ public class MyViewController extends AView { //TODO: request focus!!!!!!
 
 
     public void generateMazeButton(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/MazeDisplayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MazeDisplayer.fxml"));
         try {
             root = loader.load();
         } catch (IOException e) {

@@ -1,7 +1,6 @@
 package View;
 
 import Model.ModelResponses;
-import Model.MyModel;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Position;
 import javafx.event.ActionEvent;
@@ -25,18 +24,20 @@ public class MazeView extends AView implements Initializable {
     public MazeCanvasDisplay mazeCanvasDisplay;
     public BorderPane borderPane;
     public MenuBar TopBar;
+    double lastMouseX = 0, lastMouseY = 0;
+    boolean dragDetected = false;
+
+    public MazeView() {
+        this.myViewModel = new MyViewModel();
+        this.myViewModel.addObserver(this);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    public MazeView(){
-        this.myViewModel = new MyViewModel();
-        this.myViewModel.addObserver(this);
-    }
-
     public void addResizeListener() {
-        ((Stage)this.borderPane.getScene().getWindow()).setResizable(true);
+        ((Stage) this.borderPane.getScene().getWindow()).setResizable(true);
         this.borderPane.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
             this.mazeCanvasDisplay.setWidth((double) newVal); //TODO: handle min size
             this.mazeCanvasDisplay.resizeHandle();
@@ -124,34 +125,23 @@ public class MazeView extends AView implements Initializable {
         mazeCanvasDisplay.requestFocus();
     }
 
-
-    double mousePosX=0, mousePosY=0;
-    boolean startDrag = false;
-
     public void mouseDragged(MouseEvent mouseEvent) {
-        if (this.startDrag) {
-            if (Math.abs(mouseEvent.getX() - mousePosX) >= this.mazeCanvasDisplay.getScale() ||
-                    Math.abs(mouseEvent.getY() - mousePosY) >= this.mazeCanvasDisplay.getScale()) {
-                myViewModel.movePlayer(mouseEvent, mousePosX, mousePosY);
-                mousePosX = mouseEvent.getX();
-                mousePosY = mouseEvent.getY();
-            }
-
+        double diffX = mouseEvent.getX() - lastMouseX, diffY = mouseEvent.getY() - lastMouseY;
+        double scale = this.mazeCanvasDisplay.getScale();
+        if (!dragDetected) {
+            dragDetected = true;
+            lastMouseX = mouseEvent.getX();
+            lastMouseY = mouseEvent.getY();
+        } else if (Math.abs(diffX) >= scale ||
+                Math.abs(diffY) >= scale) {
+            myViewModel.movePlayer(diffX, diffY, scale);
+            lastMouseX = mouseEvent.getX();
+            lastMouseY = mouseEvent.getY();
         }
-
     }
 
-    public void dragDetected(MouseEvent mouseEvent) {
-        this.startDrag = true;
-        this.mousePosX = mouseEvent.getX();
-        this.mousePosY = mouseEvent.getY();
-    }
-
-    public void mouseReleased(MouseEvent mouseEvent) {
-        this.startDrag = false;
-        this.mousePosX = mouseEvent.getX();
-        this.mousePosY = mouseEvent.getY();
-        mouseEvent.consume();
+    public void onMouseReleased(MouseEvent mouseEvent) {
+        dragDetected = false;
     }
 
     public void scrollHandle(ScrollEvent scrollEvent) {

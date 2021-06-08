@@ -29,5 +29,6 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root, Color.BLACK));
         primaryStage.show();
+        primaryStage.requestFocus();
     }
 }

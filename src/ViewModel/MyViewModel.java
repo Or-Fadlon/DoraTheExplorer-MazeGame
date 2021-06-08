@@ -61,14 +61,14 @@ public class MyViewModel extends Observable implements Observer {
         this.model.updatePlayerLocation(direction);
     }
 
-    public void movePlayer(MouseEvent mouseEvent, double mousePosX, double mousePosY) {
-        if (mouseEvent.getY() <= mousePosY)
+    public void movePlayer(double diffX, double diffY, double scale) {
+        if (-diffY >= scale)
             this.model.updatePlayerLocation(MovementDirection.UP);
-        else if (mouseEvent.getX() >= mousePosX)
+        if (diffX >= scale)
             this.model.updatePlayerLocation(MovementDirection.RIGHT);
-        else if (mouseEvent.getY() >= mousePosY)
+        if (diffY >= scale)
             this.model.updatePlayerLocation(MovementDirection.DOWN);
-        else if (mouseEvent.getX() <= mousePosX)
+        if (-diffX >= scale)
             this.model.updatePlayerLocation(MovementDirection.LEFT);
     }
 
