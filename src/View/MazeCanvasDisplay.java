@@ -8,22 +8,15 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 public class MazeCanvasDisplay extends Canvas {
-    private final Color playerColor = Color.CYAN;
-    private final Color wallColor = Color.RED;
-    private final Color goalColor = Color.GREEN;
-    private final Color solutionColor = Color.GOLD;
     public double zoom = 1;
     // wall and player path images:
-    private Image playerImage, wallImage, solutionImage, goalImage;
+    private Gallery gallery;
     private MazeMediaPlayer mazeMediaPlayer;
     private Maze maze;
     private Solution solution = null;
@@ -39,43 +32,19 @@ public class MazeCanvasDisplay extends Canvas {
 
 
     public void LoadRes() {
-        this.LoadRes("Mario");
+        this.LoadRes(Gallery.Theme.Dora);
     }
 
-    public void LoadRes(String theme) {
+    public void LoadRes(Gallery.Theme theme) {
         LoadImages(theme);
-        LoadSound(theme);
+        LoadSound();
     }
 
-    private void LoadImages(String theme) {
-        String prefix = "./resources/Themes/" + theme + "/Images/";
-
-        try {
-            this.playerImage = new Image(new FileInputStream(prefix + "player.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no " + theme + " player image file");
-        }
-
-        try {
-            this.wallImage = new Image(new FileInputStream(prefix + "wall.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no " + theme + " wall image file");
-        }
-
-        try {
-            this.solutionImage = new Image(new FileInputStream(prefix + "solution.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no " + theme + " solution image file");
-        }
-
-        try {
-            this.goalImage = new Image(new FileInputStream(prefix + "goal.png"));
-        } catch (FileNotFoundException e) {
-            System.out.println("There is no " + theme + " goal image file");
-        }
+    private void LoadImages(Gallery.Theme theme) {
+        this.gallery = Gallery.getInstance(theme);
     }
 
-    private void LoadSound(String theme) {
+    private void LoadSound() {
         this.mazeMediaPlayer = MazeMediaPlayer.getInstance();
     }
 
@@ -98,6 +67,8 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellSize) {
+        Image wallImage = gallery.getImage(Gallery.MazeImage.Wall);
+        Color wallColor = Color.RED;
 
         int rowSize = this.maze.getRowsSize();
         int colSize = this.maze.getColumnsSize();
@@ -107,37 +78,43 @@ public class MazeCanvasDisplay extends Canvas {
                     //if it is a wall:
                     double x = j * cellSize;
                     double y = i * cellSize;
-                    if (this.wallImage == null) {
-                        graphicsContext.setFill(this.wallColor);
+                    if (wallImage == null) {
+                        graphicsContext.setFill(wallColor);
                         graphicsContext.fillRect(x, y, cellSize, cellSize);
                     } else
-                        graphicsContext.drawImage(this.wallImage, x, y, cellSize, cellSize);
+                        graphicsContext.drawImage(wallImage, x, y, cellSize, cellSize);
                 }
             }
         }
     }
 
     private void drawGoal(GraphicsContext graphicsContext, double cellSize) {
+        Image goalImage = gallery.getImage(Gallery.MazeImage.Goal);
+        Color goalColor = Color.GREEN;
+
         Position goalPosition = this.maze.getGoalPosition();
         double x = goalPosition.getColumnIndex() * cellSize;
         double y = goalPosition.getRowIndex() * cellSize;
 
-        if (this.goalImage == null) {
-            graphicsContext.setFill(this.goalColor);
+        if (goalImage == null) {
+            graphicsContext.setFill(goalColor);
             graphicsContext.fillRect(x, y, cellSize, cellSize);
         } else
-            graphicsContext.drawImage(this.goalImage, x, y, cellSize, cellSize);
+            graphicsContext.drawImage(goalImage, x, y, cellSize, cellSize);
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellSize) {
+        Image playerImage = gallery.getImage(Gallery.MazeImage.PlayerUp);
+        Color playerColor = Color.CYAN;
+
         double x = getPlayerCol() * cellSize;
         double y = getPlayerRow() * cellSize;
 
-        if (this.playerImage == null) {
-            graphicsContext.setFill(this.playerColor);
+        if (playerImage == null) {
+            graphicsContext.setFill(playerColor);
             graphicsContext.fillRect(x, y, cellSize, cellSize);
         } else
-            graphicsContext.drawImage(this.playerImage, x, y, cellSize, cellSize);
+            graphicsContext.drawImage(playerImage, x, y, cellSize, cellSize);
 
     }
 
@@ -146,6 +123,8 @@ public class MazeCanvasDisplay extends Canvas {
             return;
 
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
+        Image solutionImage = gallery.getImage(Gallery.MazeImage.Solution);
+        Color solutionColor = Color.GOLD;
 
         Position goalPosition = this.maze.getGoalPosition();
         Position tempPosition = null;
@@ -156,11 +135,11 @@ public class MazeCanvasDisplay extends Canvas {
                     //if it is a wall:
                     double x = j * cellSize;
                     double y = i * cellSize;
-                    if (this.solutionImage == null) {
-                        graphicsContext.setFill(this.solutionColor);
+                    if (solutionImage == null) {
+                        graphicsContext.setFill(solutionColor);
                         graphicsContext.fillRect(x, y, cellSize, cellSize);
                     } else
-                        graphicsContext.drawImage(this.solutionImage, x, y, cellSize, cellSize);
+                        graphicsContext.drawImage(solutionImage, x, y, cellSize, cellSize);
 
                 }
             }
@@ -225,7 +204,6 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void finish() {
-        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.Goal);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Finish!");

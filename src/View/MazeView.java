@@ -109,8 +109,10 @@ public class MazeView extends AView implements Initializable {
     }
 
     public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.S)
+        if (keyEvent.getCode() == KeyCode.S) {
             this.myViewModel.solveMaze();
+            MazeMediaPlayer.getInstance().play(MazeMediaPlayer.MazeSound.Solution);
+        }
         else if (keyEvent.getCode() == KeyCode.L) //TODO: remove
             this.loadMaze(new ActionEvent());
         else if (keyEvent.getCode() == KeyCode.K) //TODO: remove

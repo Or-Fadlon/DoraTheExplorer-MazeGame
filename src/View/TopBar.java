@@ -2,7 +2,7 @@ package View;
 
 import javafx.event.ActionEvent;
 
-public class TopBar {
+public class  TopBar {
     public void newOne(ActionEvent actionEvent) {
     }
 
