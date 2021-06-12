@@ -24,7 +24,7 @@ public class MazeCanvasDisplay extends Canvas {
     public double zoom = 1;
     // wall and player path images:
     private Image playerImage, wallImage, solutionImage, goalImage;
-    private AudioClip startAudio, wallAudio, goalAudio;
+    private MazeMediaPlayer mazeMediaPlayer;
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
@@ -76,27 +76,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void LoadSound(String theme) {
-        String path;
-        try {
-            path = getClass().getResource("/Themes/" + theme + "/Sound/start.wav").toString();
-            this.startAudio = new AudioClip(path);
-        } catch (Exception e) {
-            System.out.println("Start sound not found");
-        }
-        try {
-            path = getClass().getResource("/Themes/" + theme + "/Sound/hitWall.wav").toString();
-            this.wallAudio = new AudioClip(path);
-        } catch (Exception e) {
-            System.out.println("Start sound not found");
-        }
-        try {
-            path = getClass().getResource("/Themes/" + theme + "/Sound/goal.wav").toString();
-            this.goalAudio = new AudioClip(path);
-
-        } catch (Exception e) {
-            System.out.println("Start sound not found");
-        }
-
+        this.mazeMediaPlayer = MazeMediaPlayer.getInstance();
     }
 
     private void draw() {
@@ -108,7 +88,6 @@ public class MazeCanvasDisplay extends Canvas {
             graphicsContext.fillRect(0, 0, this.getWidth(), this.getHeight());
 
             graphicsContext.translate(camera.getX(), camera.getY());
-
             this.drawMazeWalls(graphicsContext, this.scale);
             this.drawSolution(graphicsContext, this.scale);
             this.drawGoal(graphicsContext, this.scale);
@@ -217,8 +196,7 @@ public class MazeCanvasDisplay extends Canvas {
         this.updateScale();
         this.setPlayerPosition(playerPosition);
         this.draw();
-        if (this.startAudio != null)
-            this.startAudio.play();
+        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.Start);
     }
 
     public int getPlayerRow() {
@@ -247,8 +225,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void finish() {
-        if (this.goalAudio != null)
-            this.goalAudio.play();
+        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.Goal);
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Finish!");
@@ -256,8 +233,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void wallHit() {
-        if (this.wallAudio != null)
-            this.wallAudio.play();
+        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.WallHit);
     }
 
     public double getScale() {

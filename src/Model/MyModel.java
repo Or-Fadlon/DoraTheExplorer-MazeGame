@@ -23,12 +23,14 @@ public class MyModel extends Observable implements IModel {
 
 
     public MyModel() {
-        this.startServers();
+        this.startGenerateServers();
     }
 
-    private void startServers() {
+    private void startGenerateServers() {
         this.mazeGeneratorServer = new Server(5400, 2000, new ServerStrategyGenerateMaze());
         this.mazeGeneratorServer.start();
+    }
+    private void startSolvingServers() {
         this.mazeSolverServer = new Server(5401, 2000, new ServerStrategySolveSearchProblem());
         this.mazeSolverServer.start();
     }
@@ -89,6 +91,8 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void solveMaze() {
+        if (mazeSolverServer == null)
+            this.startSolvingServers();
         try {
             this.mazeSolverClient = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
                 public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
@@ -121,7 +125,6 @@ public class MyModel extends Observable implements IModel {
 
     @Override
     public void updatePlayerLocation(MovementDirection direction) {
-        System.out.println(direction); //TODO: REMOVE
         Position newPosition;
         switch (direction) {
             case UP -> newPosition = this.playerPosition.getUpPosition(); //UP

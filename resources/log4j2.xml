@@ -1,20 +1,28 @@
 <Configuration status="info">
     <Properties>
-        <Property name="filename">logs/server.log</Property>
+        <Property name="log-path" value="logs/"/>
+        <Property name="file-type" value=".log"/>
     </Properties>
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger - %msg%n"/>
         </Console>
-        <RollingFile name="File" fileName="${filename}" filePattern="${filename}-%d{yyyy.MM.dd_HH.mm.ss}-%i.log">
-            <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger - %msg%n"/>
-            <SizeBasedTriggeringPolicy size="1 MB"/>
-        </RollingFile>
+        <Routing name="Routing">
+            <Routes pattern="$${event:Logger}">
+                <Route>
+                    <RollingFile name="Rolling-${event:Logger}" fileName="${log-path}server-${event:Logger}${file-type}"
+                                 filePattern="${file-name}-%d{yyyy.MM.dd_HH.mm.ss}-%i-${event:Logger}.log">
+                        <PatternLayout pattern="%d{dd.MM.yyyy HH:mm:ss.SSS} %-5level %logger - %msg%n"/>
+                        <SizeBasedTriggeringPolicy size="1 MB"/>
+                    </RollingFile>
+                </Route>
+            </Routes>
+        </Routing>
     </Appenders>
     <Loggers>
         <Root level="info">
-            <AppenderRef ref="File"/>
-            <AppenderRef ref="Console"/>
+            <AppenderRef ref="Routing"/>
+            <!--AppenderRef ref="Console"/!-->
         </Root>
     </Loggers>
 </Configuration>
