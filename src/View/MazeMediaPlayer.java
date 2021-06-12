@@ -9,7 +9,7 @@ public class MazeMediaPlayer {
 
     private AudioClip backgroundAudio, startAudio, wallAudio, solutionAudio, propertiesAudio;
     private boolean mute = false;
-    private double fxVolume = 0.03;
+    private double fxVolume = 0.1;
     private double backVolume = 1.0;
 
     private MazeMediaPlayer() {

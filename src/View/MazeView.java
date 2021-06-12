@@ -1,6 +1,7 @@
 package View;
 
 import Model.ModelResponses;
+import Model.MovementDirection;
 import ViewModel.MyViewModel;
 import algorithms.mazeGenerators.Position;
 import javafx.event.ActionEvent;
@@ -104,10 +105,6 @@ public class MazeView extends AView implements Initializable {
         this.myViewModel.loadMaze(chosen);
     }
 
-    public void setPlayerPosition(Position position) {
-        mazeCanvasDisplay.setPlayerPosition(position);
-    }
-
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.S) {
             this.myViewModel.solveMaze();
@@ -117,9 +114,21 @@ public class MazeView extends AView implements Initializable {
             this.loadMaze(new ActionEvent());
         else if (keyEvent.getCode() == KeyCode.K) //TODO: remove
             this.saveMaze(new ActionEvent());
-        else
+        else {
+            MovementDirection direction = null;
+            switch (keyEvent.getCode()) {
+                case NUMPAD8, UP -> direction = MovementDirection.UP; //UP
+                case NUMPAD9 -> direction = MovementDirection.UP_RIGHT;
+                case NUMPAD6, RIGHT -> direction = MovementDirection.RIGHT; //RIGHT
+                case NUMPAD3 -> direction = MovementDirection.DOWN_RIGHT;
+                case NUMPAD2, DOWN -> direction = MovementDirection.DOWN; //DOWN
+                case NUMPAD1 -> direction = MovementDirection.DOWN_LEFT;
+                case NUMPAD4, LEFT -> direction = MovementDirection.LEFT; //LEFT
+                case NUMPAD7 -> direction = MovementDirection.UP_LEFT;
+            }
+            this.mazeCanvasDisplay.setPlayerDirection(direction);
             this.myViewModel.movePlayer(keyEvent);
-        //TODO: smother move with speed (see older games)
+        }
         keyEvent.consume();
     }
 

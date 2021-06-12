@@ -6,19 +6,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Random;
 
-public class Gallery {
-    private static Gallery gallery;
+public class MazeGallery {
+    private static MazeGallery mazeGallery;
 
-    private Image playerUp, playerDown, playerSide, follower, wall, solution, goal;
+    private Image playerUp, playerRight, playerDown, playerLeft, follower, wall, tile, solution, goal;
 
-    private Gallery(Theme theme) {
+    private MazeGallery(Theme theme) {
         this.loadImages(theme);
     }
 
-    public static Gallery getInstance(Theme theme) {
-        if (gallery == null)
-            gallery = new Gallery(theme);
-        return gallery;
+    public static MazeGallery getInstance(Theme theme) {
+        if (mazeGallery == null)
+            mazeGallery = new MazeGallery(theme);
+        return mazeGallery;
     }
 
     private void loadImages(Theme theme) {
@@ -29,17 +29,27 @@ public class Gallery {
             System.out.println("image not found");
         }
         try {
+            this.playerRight = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/right.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
             this.playerDown = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/down.png"));
         } catch (FileNotFoundException e) {
             System.out.println("image not found");
         }
         try {
-            this.playerSide = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/side.png"));
+            this.playerLeft = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/left.png"));
         } catch (FileNotFoundException e) {
             System.out.println("image not found");
         }
         try {
             this.follower = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/follower.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.tile = new Image(new FileInputStream(prefix + "Wall/tile.png"));
         } catch (FileNotFoundException e) {
             System.out.println("image not found");
         }
@@ -66,10 +76,12 @@ public class Gallery {
         Image value = null;
         switch (image) {
             case PlayerUp -> value = this.playerUp;
+            case PlayerRight -> value = this.playerRight;
             case PlayerDown -> value = this.playerDown;
-            case PlayerSide -> value = this.playerSide;
+            case PlayerLeft -> value = this.playerLeft;
             case Follower -> value = this.follower;
             case Wall -> value = this.wall;
+            case Tile -> value = this.tile;
             case Solution -> value = this.solution;
             case Goal -> value = this.goal;
         }
@@ -79,10 +91,12 @@ public class Gallery {
 
     public enum MazeImage {
         PlayerUp,
+        PlayerRight,
         PlayerDown,
-        PlayerSide,
+        PlayerLeft,
         Follower,
         Wall,
+        Tile,
         Solution,
         Goal
     }

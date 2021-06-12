@@ -1,5 +1,6 @@
 package View;
 
+import Model.MovementDirection;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.AState;
@@ -16,8 +17,10 @@ import java.util.HashSet;
 public class MazeCanvasDisplay extends Canvas {
     public double zoom = 1;
     // wall and player path images:
-    private Gallery gallery;
+    private MazeGallery mazeGallery;
     private MazeMediaPlayer mazeMediaPlayer;
+    private MovementDirection playerDirection = MovementDirection.DOWN;
+    private MovementDirection followerDirection;
     private Maze maze;
     private Solution solution = null;
     private Position playerPosition;
@@ -32,16 +35,16 @@ public class MazeCanvasDisplay extends Canvas {
 
 
     public void LoadRes() {
-        this.LoadRes(Gallery.Theme.Dora);
+        this.LoadRes(MazeGallery.Theme.Dora);
     }
 
-    public void LoadRes(Gallery.Theme theme) {
+    public void LoadRes(MazeGallery.Theme theme) {
         LoadImages(theme);
         LoadSound();
     }
 
-    private void LoadImages(Gallery.Theme theme) {
-        this.gallery = Gallery.getInstance(theme);
+    private void LoadImages(MazeGallery.Theme theme) {
+        this.mazeGallery = MazeGallery.getInstance(theme);
     }
 
     private void LoadSound() {
@@ -67,7 +70,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellSize) {
-        Image wallImage = gallery.getImage(Gallery.MazeImage.Wall);
+        Image wallImage = mazeGallery.getImage(MazeGallery.MazeImage.Wall);
         Color wallColor = Color.RED;
 
         int rowSize = this.maze.getRowsSize();
@@ -89,7 +92,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void drawGoal(GraphicsContext graphicsContext, double cellSize) {
-        Image goalImage = gallery.getImage(Gallery.MazeImage.Goal);
+        Image goalImage = mazeGallery.getImage(MazeGallery.MazeImage.Goal);
         Color goalColor = Color.GREEN;
 
         Position goalPosition = this.maze.getGoalPosition();
@@ -104,8 +107,15 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void drawPlayer(GraphicsContext graphicsContext, double cellSize) {
-        Image playerImage = gallery.getImage(Gallery.MazeImage.PlayerUp);
+        Image playerImage = null;
         Color playerColor = Color.CYAN;
+
+        switch (this.playerDirection) {
+            case UP -> playerImage = mazeGallery.getImage(MazeGallery.MazeImage.PlayerUp);
+            case RIGHT, UP_RIGHT, DOWN_RIGHT -> playerImage = mazeGallery.getImage(MazeGallery.MazeImage.PlayerRight);
+            case DOWN -> playerImage = mazeGallery.getImage(MazeGallery.MazeImage.PlayerDown);
+            case LEFT, UP_LEFT, DOWN_LEFT -> playerImage = mazeGallery.getImage(MazeGallery.MazeImage.PlayerLeft);
+        }
 
         double x = getPlayerCol() * cellSize;
         double y = getPlayerRow() * cellSize;
@@ -115,7 +125,6 @@ public class MazeCanvasDisplay extends Canvas {
             graphicsContext.fillRect(x, y, cellSize, cellSize);
         } else
             graphicsContext.drawImage(playerImage, x, y, cellSize, cellSize);
-
     }
 
     private void drawSolution(GraphicsContext graphicsContext, double cellSize) {
@@ -123,7 +132,7 @@ public class MazeCanvasDisplay extends Canvas {
             return;
 
         HashSet<Position> pathHashMap = solutionToPositionsHashSet();
-        Image solutionImage = gallery.getImage(Gallery.MazeImage.Solution);
+        Image solutionImage = mazeGallery.getImage(MazeGallery.MazeImage.Solution);
         Color solutionColor = Color.GOLD;
 
         Position goalPosition = this.maze.getGoalPosition();
@@ -190,6 +199,11 @@ public class MazeCanvasDisplay extends Canvas {
         this.playerPosition = position;
         this.updateCamera();
         this.draw();
+    }
+
+    public void setPlayerDirection(MovementDirection direction) {
+        if (direction != null)
+            this.playerDirection = direction;
     }
 
     private void updateCamera() {
