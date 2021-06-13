@@ -1,5 +1,6 @@
 package View;
 
+import javafx.stage.Stage;
+
 public interface IView {
-//    void startView(String title, String path); //TODO: see last tirgul about that issue
 }

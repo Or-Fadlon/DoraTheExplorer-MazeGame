@@ -2,23 +2,23 @@ package View;
 
 import javafx.scene.media.AudioClip;
 
-public class MazeMediaPlayer {
+public class MazeAudioPlayer {
 
 
-    private static MazeMediaPlayer mediaPlayer = null;
+    private static MazeAudioPlayer mediaPlayer = null;
 
     private AudioClip backgroundAudio, startAudio, wallAudio, solutionAudio, propertiesAudio;
     private boolean mute = false;
     private double fxVolume = 0.1;
     private double backVolume = 1.0;
 
-    private MazeMediaPlayer() {
+    private MazeAudioPlayer() {
         this.loadSound();
     }
 
-    public static MazeMediaPlayer getInstance() {
+    public static MazeAudioPlayer getInstance() {
         if (mediaPlayer == null) {
-            mediaPlayer = new MazeMediaPlayer();
+            mediaPlayer = new MazeAudioPlayer();
         }
 
         return mediaPlayer;
@@ -26,6 +26,12 @@ public class MazeMediaPlayer {
 
     private void loadSound() {
         String path;
+        try {
+            path = getClass().getResource("/Sound/background.mp3").toString();
+            this.backgroundAudio = new AudioClip(path);
+        } catch (Exception e) {
+            System.out.println("Start sound not found");
+        }
         try {
             path = getClass().getResource("/Sound/start.mp3").toString();
             this.startAudio = new AudioClip(path);
@@ -56,7 +62,7 @@ public class MazeMediaPlayer {
 
     public void play(MazeSound soundName) {
         switch (soundName) {
-            case BackGround->playBack();
+            case BackGround -> playBack();
             case Start -> playThis(this.startAudio);
             case WallHit -> playThis(this.wallAudio);
             case Solution -> playThis(this.solutionAudio);
@@ -70,11 +76,25 @@ public class MazeMediaPlayer {
             audioClip.play(fxVolume);
         }
     }
+
     private void playBack() {
         if (this.backgroundAudio != null && !this.mute) {
             this.backgroundAudio.setVolume(backVolume);
             this.backgroundAudio.play(fxVolume);
         }
+    }
+
+    public void stopAll() {
+        if (backgroundAudio != null)
+            backgroundAudio.stop();
+        if (startAudio != null)
+            startAudio.stop();
+        if (wallAudio != null)
+            wallAudio.stop();
+        if (solutionAudio != null)
+            solutionAudio.stop();
+        if (propertiesAudio != null)
+            propertiesAudio.stop();
     }
 
     public boolean isMute() {

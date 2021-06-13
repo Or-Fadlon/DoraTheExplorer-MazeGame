@@ -18,7 +18,7 @@ public class MazeCanvasDisplay extends Canvas {
     public double zoom = 1;
     // wall and player path images:
     private MazeGallery mazeGallery;
-    private MazeMediaPlayer mazeMediaPlayer;
+    private MazeAudioPlayer mazeAudioPlayer;
     private MovementDirection playerDirection = MovementDirection.DOWN;
     private MovementDirection followerDirection;
     private Maze maze;
@@ -48,7 +48,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     private void LoadSound() {
-        this.mazeMediaPlayer = MazeMediaPlayer.getInstance();
+        this.mazeAudioPlayer = MazeAudioPlayer.getInstance();
     }
 
     private void draw() {
@@ -184,7 +184,8 @@ public class MazeCanvasDisplay extends Canvas {
         this.updateScale();
         this.setPlayerPosition(playerPosition);
         this.draw();
-        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.Start);
+        this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.BackGround);
+        this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.Start);
     }
 
     public int getPlayerRow() {
@@ -218,14 +219,13 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void finish() {
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("Finish!");
-        alert.show();
+        this.mazeAudioPlayer.stopAll();
+        VideoPlayer.setVideo(VideoPlayer.MazeVideo.Finish);
+        StageGenerator.changeMainScene("../View/VideoPlayer.fxml");
     }
 
     public void wallHit() {
-        this.mazeMediaPlayer.play(MazeMediaPlayer.MazeSound.WallHit);
+        this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.WallHit);
     }
 
     public double getScale() {

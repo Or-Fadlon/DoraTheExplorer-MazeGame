@@ -17,19 +17,19 @@ public class MyViewController extends AView { //TODO: request focus!!!!!!
     public Label hardArrow;
 
     private GameDiff mode = GameDiff.Easy;
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
-
 
     public void generateMazeButton(ActionEvent actionEvent) {
+        //TODO: change and use ChangeMainScene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MazeDisplayer.fxml"));
+
+        Parent root;
         try {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
+
         int rows = 0, cols = 0;
 
         switch (this.mode) {
@@ -48,15 +48,8 @@ public class MyViewController extends AView { //TODO: request focus!!!!!!
         }
 
         MazeView mazeView = loader.getController();
-        stage = (Stage) (((Node) actionEvent.getSource()).getScene().getWindow());
-        scene = new Scene(root);
-//        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent keyEvent) {
-//                System.out.println(keyEvent.getCode());
-//            }
-//        });
-        stage.setScene(scene);
+        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Main);
+        stage.setScene(new Scene(root));
         stage.show();
         mazeView.generateNewMaze(rows, cols);
     }
@@ -110,7 +103,7 @@ public class MyViewController extends AView { //TODO: request focus!!!!!!
         }
     }
 
-    private enum GameDiff{
+    private enum GameDiff {
         Easy,
         Medium,
         Hard

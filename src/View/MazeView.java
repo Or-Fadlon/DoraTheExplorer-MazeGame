@@ -3,7 +3,6 @@ package View;
 import Model.ModelResponses;
 import Model.MovementDirection;
 import ViewModel.MyViewModel;
-import algorithms.mazeGenerators.Position;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -78,7 +77,8 @@ public class MazeView extends AView implements Initializable {
         this.mazeCanvasDisplay.finish();
     }
 
-    private void solveMaze(ActionEvent actionEvent) {
+    private void solveMaze() {
+        MazeAudioPlayer.getInstance().stopAll();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Solving maze...");
         alert.show();
@@ -107,10 +107,9 @@ public class MazeView extends AView implements Initializable {
 
     public void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.S) {
-            this.myViewModel.solveMaze();
-            MazeMediaPlayer.getInstance().play(MazeMediaPlayer.MazeSound.Solution);
-        }
-        else if (keyEvent.getCode() == KeyCode.L) //TODO: remove
+            this.solveMaze();
+            MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.Solution);
+        } else if (keyEvent.getCode() == KeyCode.L) //TODO: remove
             this.loadMaze(new ActionEvent());
         else if (keyEvent.getCode() == KeyCode.K) //TODO: remove
             this.saveMaze(new ActionEvent());
@@ -166,5 +165,6 @@ public class MazeView extends AView implements Initializable {
         }
         scrollEvent.consume();
     }
+
 
 }

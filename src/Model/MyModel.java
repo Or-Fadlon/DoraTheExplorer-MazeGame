@@ -155,6 +155,7 @@ public class MyModel extends Observable implements IModel {
     public void finishGame() {
         setChanged();
         notifyObservers(ModelResponses.Finish);
+        stopServers();
         //TODO: how to goal?
     }
 

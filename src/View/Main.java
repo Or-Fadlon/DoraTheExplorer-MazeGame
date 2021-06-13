@@ -18,9 +18,10 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/MyView.fxml")));
+        StageGenerator.setMainStage(primaryStage);
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/VideoPlayer.fxml")));
         primaryStage.getIcons().add(new Image(getClass().getResource("/Icons/icon.png").toString()));
-        primaryStage.setTitle("ATP-Maze - Fadlon");
+        primaryStage.setTitle("ATP-Project - Dora The Explorer");
         primaryStage.setResizable(false);
 //        primaryStage.setX(150);
 //        primaryStage.setY(150);
