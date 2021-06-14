@@ -113,6 +113,8 @@ public class MazeView extends AView implements Initializable {
             this.loadMaze(new ActionEvent());
         else if (keyEvent.getCode() == KeyCode.K) //TODO: remove
             this.saveMaze(new ActionEvent());
+        else if (keyEvent.getCode() == KeyCode.M)
+            this.mazeCanvasDisplay.toggleFreeCamera();
         else {
             MovementDirection direction = null;
             switch (keyEvent.getCode()) {
@@ -144,7 +146,10 @@ public class MazeView extends AView implements Initializable {
             lastMouseY = mouseEvent.getY();
         } else if (Math.abs(diffX) >= scale ||
                 Math.abs(diffY) >= scale) {
-            myViewModel.movePlayer(diffX, diffY, scale);
+            if (mouseEvent.isControlDown())
+                this.mazeCanvasDisplay.moveFreeCamera(diffX, diffY, scale);
+            else
+                myViewModel.movePlayer(diffX, diffY, scale);
             lastMouseX = mouseEvent.getX();
             lastMouseY = mouseEvent.getY();
         }

@@ -9,6 +9,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class MazeCanvasDisplay extends Canvas {
 
 
     public void LoadRes() {
-        this.LoadRes(MazeGallery.Theme.Dora);
+        this.LoadRes(MazeGallery.Theme.Diego);
     }
 
     public void LoadRes(MazeGallery.Theme theme) {
@@ -222,6 +224,23 @@ public class MazeCanvasDisplay extends Canvas {
         if (this.camera == null)
             this.camera = new Camera(this);
         this.camera.updateCamera(this.playerPosition, this.scale);
+    }
+
+    public void moveFreeCamera(double diffX, double diffY, double scale) {
+        if (-diffY >= scale)
+            this.camera.moveFreeCamera(0, -1);
+        if (diffX >= scale)
+            this.camera.moveFreeCamera(1, 0);
+        if (diffY >= scale)
+            this.camera.moveFreeCamera(0, 1);
+        if (-diffX >= scale)
+            this.camera.moveFreeCamera(-1, 0);
+        this.draw();
+    }
+
+    public void toggleFreeCamera(){
+        this.camera.toggleFreeCamera();
+        this.draw();
     }
 
     public void setSolution(Solution solution) {
