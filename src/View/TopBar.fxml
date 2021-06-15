@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
-
+<?import javafx.scene.layout.BorderPane?>
 <MenuBar BorderPane.alignment="CENTER" fx:controller="View.TopBar" xmlns:fx="http://javafx.com/fxml/1">
-        <Menu mnemonicParsing="false" text="File">
-                <MenuItem mnemonicParsing="false" text="New" onAction="#newOne"/>
-                <MenuItem mnemonicParsing="false" text="Save"  onAction="#save"/>
-                <MenuItem mnemonicParsing="false" text="Load"  onAction="#load"/>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Options">
-                <MenuItem mnemonicParsing="false" text="Properties"  onAction="#properties"/>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Exit"  onAction="#exit"/>
-        <Menu mnemonicParsing="false" text="Help"  onAction="#help"/>
-        <Menu mnemonicParsing="false" text="About"  onAction="#about"/>
+    <Menu mnemonicParsing="false" text="File">
+        <MenuItem mnemonicParsing="false" text="New" onAction="#newOne"/>
+        <MenuItem mnemonicParsing="false" text="Save" onAction="#save"/>
+        <MenuItem mnemonicParsing="false" text="Load" onAction="#load"/>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Options">
+        <MenuItem mnemonicParsing="false" text="Properties" onAction="#properties"/>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Exit" onAction="#exit"/>
+    <Menu mnemonicParsing="false" text="Help" onAction="#help"/>
+    <Menu mnemonicParsing="false" text="About" onAction="#about"/>
 </MenuBar>

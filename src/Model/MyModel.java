@@ -1,9 +1,13 @@
 package Model;
 
-import Client.*;
+import Client.Client;
+import Client.IClientStrategy;
 import IO.MyDecompressorInputStream;
-import Server.*;
-import algorithms.mazeGenerators.*;
+import Server.Server;
+import Server.ServerStrategyGenerateMaze;
+import Server.ServerStrategySolveSearchProblem;
+import algorithms.mazeGenerators.Maze;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
 
 import java.io.*;
@@ -30,6 +34,7 @@ public class MyModel extends Observable implements IModel {
         this.mazeGeneratorServer = new Server(5400, 2000, new ServerStrategyGenerateMaze());
         this.mazeGeneratorServer.start();
     }
+
     private void startSolvingServers() {
         this.mazeSolverServer = new Server(5401, 2000, new ServerStrategySolveSearchProblem());
         this.mazeSolverServer.start();
@@ -39,7 +44,7 @@ public class MyModel extends Observable implements IModel {
         if (mazeGeneratorServer != null)
             this.mazeGeneratorServer.stop();
         if (mazeSolverServer != null)
-        this.mazeSolverServer.stop();
+            this.mazeSolverServer.stop();
     }
 
 

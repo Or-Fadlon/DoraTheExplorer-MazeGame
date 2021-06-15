@@ -15,7 +15,7 @@ public class ClientStrategyGenerateMaze implements IClientStrategy {
         this.cols = cols;
     }
 
-    public Maze getMaze(){
+    public Maze getMaze() {
         return this.maze;
     }
 

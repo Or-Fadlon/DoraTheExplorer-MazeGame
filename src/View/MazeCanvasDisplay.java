@@ -7,10 +7,7 @@ import algorithms.search.AState;
 import algorithms.search.Solution;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -18,7 +15,6 @@ import java.util.HashSet;
 
 public class MazeCanvasDisplay extends Canvas {
     public double zoom = 1;
-    // wall and player path images:
     private MazeGallery mazeGallery;
     private MazeAudioPlayer mazeAudioPlayer;
     private MovementDirection playerDirection = MovementDirection.DOWN;
@@ -58,8 +54,9 @@ public class MazeCanvasDisplay extends Canvas {
             GraphicsContext graphicsContext = getGraphicsContext2D();
             //////////////////////////////////////////
             //background color
-            graphicsContext.setFill(Color.BEIGE);
-            graphicsContext.fillRect(0, 0, this.getWidth(), this.getHeight());
+            graphicsContext.clearRect(0, 0, this.getWidth(), this.getHeight());
+
+            this.drawBack(graphicsContext, this.scale);
 
             graphicsContext.translate(camera.getX(), camera.getY());
             this.drawMazeWalls(graphicsContext, this.scale);
@@ -72,18 +69,39 @@ public class MazeCanvasDisplay extends Canvas {
         }
     }
 
+    private void drawBack(GraphicsContext graphicsContext, double cellSize) {
+        Image outImage = mazeGallery.getImage(MazeGallery.MazeImage.Out);
+        Color outColor = Color.BEIGE;
+
+        for (int i = 0; i <= this.getHeight() / cellSize; i++) {
+            for (int j = 0; j <= this.getWidth() / cellSize; j++) {
+                double x = j * cellSize;
+                double y = i * cellSize;
+                if (outImage == null) {
+                    graphicsContext.setFill(outColor);
+                    graphicsContext.fillRect(x, y, cellSize, cellSize);
+                } else
+                    graphicsContext.drawImage(outImage, x, y, cellSize, cellSize);
+            }
+        }
+    }
+
     private void drawMazeWalls(GraphicsContext graphicsContext, double cellSize) {
         Image wallImage = mazeGallery.getImage(MazeGallery.MazeImage.Wall);
         Color wallColor = Color.RED;
 
         int rowSize = this.maze.getRowsSize();
         int colSize = this.maze.getColumnsSize();
+
+        graphicsContext.setFill(Color.BEIGE);
+        graphicsContext.fillRect(0, 0, rowSize * cellSize, colSize * cellSize);
+
         for (int i = -1; i <= rowSize; i++) {
             for (int j = -1; j <= colSize; j++) {
-                if (this.maze.positionOfWall(new Position(i, j)) || i == -1 || i == rowSize || j == -1 || j == colSize) {
-                    //if it is a wall:
-                    double x = j * cellSize;
-                    double y = i * cellSize;
+                Position tempPosition = new Position(i, j);
+                double x = j * cellSize;
+                double y = i * cellSize;
+                if (this.maze.positionOfWall(tempPosition) || i == -1 || i == rowSize || j == -1 || j == colSize) {
                     if (wallImage == null) {
                         graphicsContext.setFill(wallColor);
                         graphicsContext.fillRect(x, y, cellSize, cellSize);
@@ -161,7 +179,6 @@ public class MazeCanvasDisplay extends Canvas {
             for (int j = 0; j < this.maze.getColumnsSize(); j++) {
                 tempPosition = new Position(i, j);
                 if (pathHashMap.contains(tempPosition) && !tempPosition.equals(goalPosition)) {
-                    //if it is a wall:
                     double x = j * cellSize;
                     double y = i * cellSize;
                     if (solutionImage == null) {
@@ -238,7 +255,7 @@ public class MazeCanvasDisplay extends Canvas {
         this.draw();
     }
 
-    public void toggleFreeCamera(){
+    public void toggleFreeCamera() {
         this.camera.toggleFreeCamera();
         this.draw();
     }

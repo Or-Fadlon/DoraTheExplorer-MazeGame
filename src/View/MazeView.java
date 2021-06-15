@@ -18,9 +18,10 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.net.URL;
 import java.util.Observable;
+import java.util.Observer;
 import java.util.ResourceBundle;
 
-public class MazeView extends AView implements Initializable {
+public class MazeView extends AView implements Initializable, Observer {
     public MazeCanvasDisplay mazeCanvasDisplay;
     public BorderPane borderPane;
     public MenuBar TopBar;

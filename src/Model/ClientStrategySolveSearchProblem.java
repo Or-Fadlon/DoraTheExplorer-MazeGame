@@ -13,11 +13,11 @@ public class ClientStrategySolveSearchProblem implements IClientStrategy {
     private Maze maze;
     private Solution mazeSolution;
 
-    public void setMaze(Maze maze){
+    public void setMaze(Maze maze) {
         this.maze = maze;
     }
 
-    public Solution getSolution(){
+    public Solution getSolution() {
         return this.mazeSolution;
     }
 

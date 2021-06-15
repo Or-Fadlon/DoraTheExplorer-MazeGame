@@ -33,11 +33,11 @@ public class Camera {
                 this.x = freeX;
                 this.y = freeY;
             } else {
-                this.x = (-playerPosition.getColumnIndex() * scale + windowWidth / 2);
-                this.y = (-playerPosition.getRowIndex() * scale + windowHeight / 2);
+                this.x = (-this.playerPosition.getColumnIndex() * this.scale + windowWidth / 2);
+                this.y = (-this.playerPosition.getRowIndex() * this.scale + windowHeight / 2);
             }
         } catch (Exception e) {
-            System.out.println("No Player Found.....");
+            System.out.println("No Player Found...");
             this.x = 0;
             this.y = 0;
         }
@@ -59,8 +59,8 @@ public class Camera {
     public void toggleFreeCamera() {
         if (this.freeCamera) {
             this.freeCamera = false;
-            this.x = (-playerPosition.getColumnIndex() * scale + this.mazeCanvasDisplay.getWidth() / 2);
-            this.y = (-playerPosition.getRowIndex() * scale + this.mazeCanvasDisplay.getHeight() / 2);
+            this.x = (-this.playerPosition.getColumnIndex() * this.scale + this.mazeCanvasDisplay.getWidth() / 2);
+            this.y = (-this.playerPosition.getRowIndex() * this.scale + this.mazeCanvasDisplay.getHeight() / 2);
         } else {
             this.freeCamera = true;
             this.freeX = this.x;

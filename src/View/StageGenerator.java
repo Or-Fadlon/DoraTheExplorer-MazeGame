@@ -13,8 +13,8 @@ public class StageGenerator {
     private static Stage mainStage;
     private static Stage properties;
 
-    public static  Stage getInstance(StageName stageName){
-        switch (stageName){
+    public static Stage getInstance(StageName stageName) {
+        switch (stageName) {
             case Main -> {
                 if (mainStage == null)
                     mainStage = new Stage();
@@ -29,9 +29,9 @@ public class StageGenerator {
         return null;
     }
 
-    public static void setMainStage(Stage other){
+    public static void setMainStage(Stage other) {
         if (mainStage == null)
-        mainStage = other;
+            mainStage = other;
     }
 
     public static void changeMainScene(String viewPath) {
@@ -49,7 +49,7 @@ public class StageGenerator {
         primaryStage.requestFocus();
     }
 
-    public enum StageName{
+    public enum StageName {
         Main,
         Properties
     }

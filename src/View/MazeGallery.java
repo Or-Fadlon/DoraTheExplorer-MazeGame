@@ -9,7 +9,7 @@ import java.util.Random;
 public class MazeGallery {
     private static MazeGallery mazeGallery;
 
-    private Image playerUp, playerRight, playerDown, playerLeft, follower, wall, tile, solution, goal;
+    private Image playerUp, playerRight, playerDown, playerLeft, follower, wall, tile, solution, goal, out;
 
     private MazeGallery(Theme theme) {
         this.loadImages(theme);
@@ -64,9 +64,13 @@ public class MazeGallery {
             System.out.println("image not found");
         }
         Random rand = new Random();
-
         try {
             this.goal = new Image(new FileInputStream(prefix + "Goal/goal" + rand.nextInt(4) + ".png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.out = new Image(new FileInputStream(prefix + "Wall/out.png"));
         } catch (FileNotFoundException e) {
             System.out.println("image not found");
         }
@@ -84,6 +88,8 @@ public class MazeGallery {
             case Tile -> value = this.tile;
             case Solution -> value = this.solution;
             case Goal -> value = this.goal;
+            case Out -> value = this.out;
+
         }
         return value;
     }
@@ -98,7 +104,8 @@ public class MazeGallery {
         Wall,
         Tile,
         Solution,
-        Goal
+        Goal,
+        Out
     }
 
     public enum Theme {
