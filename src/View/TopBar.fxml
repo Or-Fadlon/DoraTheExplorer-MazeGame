@@ -12,7 +12,19 @@
     <Menu mnemonicParsing="false" text="Options">
         <MenuItem mnemonicParsing="false" text="Properties" onAction="#properties"/>
     </Menu>
-    <Menu mnemonicParsing="false" text="Exit" onAction="#exit"/>
-    <Menu mnemonicParsing="false" text="Help" onAction="#help"/>
-    <Menu mnemonicParsing="false" text="About" onAction="#about"/>
+    <Menu>
+        <graphic>
+            <Label text="Exit" onMouseClicked="#exit"/>
+        </graphic>
+    </Menu>
+    <Menu>
+        <graphic>
+            <Label text="Help" onMouseClicked="#help"/>
+        </graphic>
+    </Menu>
+    <Menu>
+        <graphic>
+            <Label text="About" onMouseClicked="#about"/>
+        </graphic>
+    </Menu>
 </MenuBar>

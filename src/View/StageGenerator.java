@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,8 +22,10 @@ public class StageGenerator {
                 return mainStage;
             }
             case Properties -> {
-                if (properties == null)
+                if (properties == null) {
                     properties = new Stage();
+                    properties.initModality(Modality.APPLICATION_MODAL);
+                }
                 return properties;
             }
         }

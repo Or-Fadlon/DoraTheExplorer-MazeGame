@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="258.0"
+          prefWidth="493.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="View.PlayerProperties">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="10.0" prefWidth="149.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="372.0" minWidth="10.0" prefWidth="190.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="343.0" minWidth="10.0" prefWidth="72.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <Label text="Background Music"/>
+        <Label text="Sound Effects" GridPane.rowIndex="1"/>
+        <Label text="Label" GridPane.rowIndex="2"/>
+        <Slider fx:id="backSlider" GridPane.columnIndex="1"/>
+        <Slider fx:id="fxSlider" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <ToggleButton fx:id="muteToggle" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Mute"
+                      GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <ChoiceBox fx:id="choiceBox" prefHeight="25.0" prefWidth="181.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        </ChoiceBox>
+        <Label text="Generation Algorithm" GridPane.rowIndex="3"/>
+        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="214.0" text="Apply"
+                GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#submit"/>
+    </children>
+</GridPane>

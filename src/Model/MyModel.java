@@ -6,9 +6,11 @@ import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
+import View.PlayerConfig;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
+import Server.Configurations;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -31,6 +33,11 @@ public class MyModel extends Observable implements IModel {
     }
 
     private void startGenerateServers() {
+        try {
+            Configurations.getInstance().setMazeGeneratingAlgorithm(PlayerConfig.getInstance().getGenerateAlgorithm().name());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         this.mazeGeneratorServer = new Server(5400, 2000, new ServerStrategyGenerateMaze());
         this.mazeGeneratorServer.start();
     }

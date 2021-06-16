@@ -8,9 +8,6 @@ public class MazeAudioPlayer {
     private static MazeAudioPlayer mediaPlayer = null;
 
     private AudioClip backgroundAudio, startAudio, wallAudio, solutionAudio, propertiesAudio;
-    private boolean mute = false;
-    private double fxVolume = 0.1;
-    private double backVolume = 1.0;
 
     private MazeAudioPlayer() {
         this.loadSound();
@@ -62,25 +59,26 @@ public class MazeAudioPlayer {
 
     public void play(MazeSound soundName) {
         switch (soundName) {
-            case BackGround -> playBack();
+            case BackGround -> playBack(this.backgroundAudio);
             case Start -> playThis(this.startAudio);
             case WallHit -> playThis(this.wallAudio);
-            case Solution -> playThis(this.solutionAudio);
-            case Properties -> playThis(this.propertiesAudio);
+            case Solution -> playBack(this.solutionAudio);
+            case Properties -> playBack(this.propertiesAudio);
         }
     }
 
     private void playThis(AudioClip audioClip) {
-        if (audioClip != null && !this.mute) {
-            audioClip.setVolume(fxVolume);
-            audioClip.play(fxVolume);
+        if (audioClip != null && !PlayerConfig.getInstance().isMute()) {
+            audioClip.setVolume(PlayerConfig.getInstance().getFxVolume());
+            audioClip.play();
         }
     }
 
-    private void playBack() {
-        if (this.backgroundAudio != null && !this.mute) {
-            this.backgroundAudio.setVolume(backVolume);
-            this.backgroundAudio.play(fxVolume);
+    private void playBack(AudioClip audioClip) {
+        this.stopAll();
+        if (audioClip != null && !PlayerConfig.getInstance().isMute()) {
+            audioClip.setVolume(PlayerConfig.getInstance().getBackVolume());
+            audioClip.play();
         }
     }
 
@@ -95,23 +93,6 @@ public class MazeAudioPlayer {
             solutionAudio.stop();
         if (propertiesAudio != null)
             propertiesAudio.stop();
-    }
-
-    public boolean isMute() {
-        return mute;
-    }
-
-    public void setMute(boolean mute) {
-        this.mute = mute;
-    }
-
-    public double getFxVolume() {
-        return fxVolume;
-    }
-
-    public void setFxVolume(double fxVolume) {
-        if (0 <= fxVolume && fxVolume <= 1)
-            this.fxVolume = fxVolume;
     }
 
     public enum MazeSound {

@@ -2,26 +2,36 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            onKeyPressed="#keyPressed" prefHeight="518.0" prefWidth="1104.0" stylesheets="@MyViewStyle.css"
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            onKeyPressed="#keyPressed" prefHeight="550.0" prefWidth="1100.0" stylesheets="@MyViewStyle.css"
             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="View.MyViewController">
+    <top>
+        <!-- content from TopBar.fxml included here -->
+        <fx:include fx:id="TopBar" source="TopBar.fxml"/>
+    </top>
+    <center>
+        <AnchorPane>
 
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="324.0" layoutY="14.0" styleClass="gameTitle"
-           text="Fadlon - Game" GridPane.columnIndex="1"/>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="514.0" layoutY="133.0" styleClass="selectLabel"
-           text="Easy"/>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="478.0" layoutY="230.0" styleClass="selectLabel"
-           text="Medium"/>
-    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="509.0" layoutY="331.0" styleClass="selectLabel"
-           text="Hard"/>
-    <Button alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="446.0" mnemonicParsing="false"
-            onAction="#generateMazeButton" prefHeight="58.0" prefWidth="327.0" text="Start"/>
-    <Label fx:id="easyArrow" layoutX="403.0" layoutY="118.0" styleClass="selectArrow" text="🢂" GridPane.rowIndex="1"/>
-    <Label fx:id="mediumArrow" layoutX="403.0" layoutY="215.0" style="visibility: hide;" styleClass="selectArrow"
-           text="🢂"/>
-    <Label fx:id="hardArrow" layoutX="403.0" layoutY="316.0" style="visibility: hide;" styleClass="selectArrow"
-           text="🢂"/>
-
-</AnchorPane>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="324.0" layoutY="14.0" styleClass="gameTitle"
+                   text="Fadlon - Game" GridPane.columnIndex="1"/>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="514.0" layoutY="133.0" styleClass="selectLabel"
+                   text="Easy"/>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="478.0" layoutY="230.0" styleClass="selectLabel"
+                   text="Medium"/>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="509.0" layoutY="331.0" styleClass="selectLabel"
+                   text="Hard"/>
+            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="389.0" layoutY="446.0" mnemonicParsing="false"
+                    onAction="#generateMazeButton" prefHeight="58.0" prefWidth="327.0" text="Start"/>
+            <Label fx:id="easyArrow" layoutX="403.0" layoutY="118.0" styleClass="selectArrow" text="🢂"
+                   GridPane.rowIndex="1"/>
+            <Label fx:id="mediumArrow" layoutX="403.0" layoutY="215.0" style="visibility: hide;"
+                   styleClass="selectArrow"
+                   text="🢂"/>
+            <Label fx:id="hardArrow" layoutX="403.0" layoutY="316.0" style="visibility: hide;" styleClass="selectArrow"
+                   text="🢂"/>
+        </AnchorPane>
+    </center>
+</BorderPane>
