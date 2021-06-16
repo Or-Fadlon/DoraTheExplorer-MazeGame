@@ -97,7 +97,7 @@ public class PlayerConfig {
         }
     }
 
-    public GenerateAlgorithm getGenerateAlgorithm(){
+    public GenerateAlgorithm getGenerateAlgorithm() {
         return this.generateAlgorithm;
     }
 
@@ -105,16 +105,16 @@ public class PlayerConfig {
         this.generateAlgorithm = generateAlgorithm;
     }
 
-    public static GenerateAlgorithm toAlgorithm(String algo){
+    public static GenerateAlgorithm toAlgorithm(String algo) {
         GenerateAlgorithm retVal = GenerateAlgorithm.MyMazeGenerator;
-        switch (algo){
-            case "EmptyMazeGenerator" ->  retVal = GenerateAlgorithm.EmptyMazeGenerator;
-            case "SimpleMazeGenerator" ->  retVal = GenerateAlgorithm.SimpleMazeGenerator;
+        switch (algo) {
+            case "EmptyMazeGenerator" -> retVal = GenerateAlgorithm.EmptyMazeGenerator;
+            case "SimpleMazeGenerator" -> retVal = GenerateAlgorithm.SimpleMazeGenerator;
         }
         return retVal;
     }
 
-    public enum GenerateAlgorithm{
+    public enum GenerateAlgorithm {
         EmptyMazeGenerator,
         SimpleMazeGenerator,
         MyMazeGenerator

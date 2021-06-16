@@ -3,6 +3,7 @@ package Model;
 import Client.Client;
 import Client.IClientStrategy;
 import IO.MyDecompressorInputStream;
+import Server.Configurations;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
@@ -10,7 +11,6 @@ import View.PlayerConfig;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.Position;
 import algorithms.search.Solution;
-import Server.Configurations;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -168,7 +168,6 @@ public class MyModel extends Observable implements IModel {
         setChanged();
         notifyObservers(ModelResponses.Finish);
         stopServers();
-        //TODO: how to goal?
     }
 
     @Override

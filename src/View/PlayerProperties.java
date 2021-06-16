@@ -17,7 +17,6 @@ public class PlayerProperties implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //TODO: check the FX value we get!
         PlayerConfig config = PlayerConfig.getInstance();
 
         this.backSlider.setValue(config.getBackVolume() * 100);

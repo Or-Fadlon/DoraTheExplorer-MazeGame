@@ -22,5 +22,4 @@ public interface IModel {
     Position getPlayerPosition();
 
     void finishGame();
-    //TODO: add properties in the model (change theme)
 }

@@ -72,8 +72,6 @@ public class MazeView extends AView implements Observer {
         this.myViewModel.generateMaze(rows, cols);
         this.addResizeListener();//TODO: We need to move it!!
         this.addCloseProperties();//TODO: We need to move it!!
-        //TODO: UPDATE DRAW
-        //mazeCanvasDisplay.drawNewMaze(maze);
     }
 
     private void finishGame() {
@@ -112,8 +110,7 @@ public class MazeView extends AView implements Observer {
         if (keyEvent.getCode() == KeyCode.S) {
             this.solveMaze();
             MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.Solution);
-        }
-        else if (keyEvent.getCode() == KeyCode.M)
+        } else if (keyEvent.getCode() == KeyCode.M)
             this.mazeCanvasDisplay.toggleFreeCamera();
         else {
             MovementDirection direction = null;

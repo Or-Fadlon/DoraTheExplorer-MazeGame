@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyViewController extends AView implements Initializable { //TODO: request focus!!!!!!
+public class MyViewController extends AView implements Initializable {
     public Label easyArrow;
     public Label mediumArrow;
     public Label hardArrow;
@@ -29,7 +29,6 @@ public class MyViewController extends AView implements Initializable { //TODO: r
     }
 
     public void generateMazeButton(ActionEvent actionEvent) {
-        //TODO: change and use ChangeMainScene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MazeDisplayer.fxml"));
 
         Parent root;
