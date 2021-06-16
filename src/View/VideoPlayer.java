@@ -16,11 +16,6 @@ public class VideoPlayer extends AView implements Initializable {
 
     private MediaPlayer mediaPlayer;
 
-    public static void setVideo(MazeVideo other) {
-        if (video != null)
-            video = other;
-    }
-
     public void setMediaView(MazeVideo video) {
         String videoPath = null;
         switch (video) {
@@ -29,15 +24,17 @@ public class VideoPlayer extends AView implements Initializable {
         }
         Media media = new Media(new File(videoPath).toURI().toString());
         this.mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setOnEndOfMedia(() -> StageGenerator.changeMainScene("../View/MyView.fxml"));
+        mediaPlayer.setOnEndOfMedia(() -> this.stopVideo(null));
         this.mediaView.setMediaPlayer(mediaPlayer);
         mediaPlayer.setAutoPlay(true);
 
     }
 
-    public void mouseClicked(MouseEvent mouseEvent) {
+    public void stopVideo(MouseEvent mouseEvent) {
         this.mediaPlayer.stop();
-        StageGenerator.changeMainScene("../View/MyView.fxml");
+        StageGenerator.getInstance(StageGenerator.StageName.Video).close();
+        StageGenerator.startMain();
+        VideoPlayer.video = MazeVideo.Finish;
     }
 
     @Override

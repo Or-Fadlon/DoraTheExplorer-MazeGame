@@ -3,10 +3,6 @@ package View;
 import Model.ModelResponses;
 import Model.MovementDirection;
 import ViewModel.MyViewModel;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCode;
@@ -18,21 +14,22 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.ResourceBundle;
 
 public class MazeView extends AView implements Observer {
     public MazeCanvasDisplay mazeCanvasDisplay;
     public BorderPane borderPane;
-    double lastMouseX = 0, lastMouseY = 0;
-    boolean dragDetected = false;
+    public MenuBar topBar;
+    private int rows = 0, cols = 0;
+    private double lastMouseX = 0, lastMouseY = 0;
+    private boolean dragDetected = false;
 
     public MazeView() {
         this.myViewModel = new MyViewModel();
         this.myViewModel.addObserver(this);
+        TopBar.setState(TopBar.GameState.Play);
+        TopBar.setMazeView(this);
     }
 
     public void addResizeListener() {
@@ -64,7 +61,14 @@ public class MazeView extends AView implements Observer {
         }
     }
 
+    public void generateNewMaze() {
+        this.generateNewMaze(this.rows, this.cols);
+    }
+
     public void generateNewMaze(int rows, int cols) {
+        this.rows = rows;
+        this.cols = cols;
+        this.mazeCanvasDisplay.setSolution(null);
         this.myViewModel.generateMaze(rows, cols);
         this.addResizeListener();//TODO: We need to move it!!
         this.addCloseProperties();//TODO: We need to move it!!
@@ -85,7 +89,7 @@ public class MazeView extends AView implements Observer {
         alert.hide();
     }
 
-    private void saveMaze() {
+    public void saveMaze() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
@@ -95,7 +99,7 @@ public class MazeView extends AView implements Observer {
             this.myViewModel.saveMaze(chosen);
     }
 
-    private void loadMaze() {
+    public void loadMaze() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
@@ -108,10 +112,7 @@ public class MazeView extends AView implements Observer {
         if (keyEvent.getCode() == KeyCode.S) {
             this.solveMaze();
             MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.Solution);
-        } else if (keyEvent.getCode() == KeyCode.L) //TODO: remove
-            this.loadMaze();
-        else if (keyEvent.getCode() == KeyCode.K) //TODO: remove
-            this.saveMaze();
+        }
         else if (keyEvent.getCode() == KeyCode.M)
             this.mazeCanvasDisplay.toggleFreeCamera();
         else {

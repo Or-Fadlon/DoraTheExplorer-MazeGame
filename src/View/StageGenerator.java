@@ -3,6 +3,7 @@ package View;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -13,6 +14,7 @@ public class StageGenerator {
 
     private static Stage mainStage;
     private static Stage properties;
+    private static Stage video;
 
     public static Stage getInstance(StageName stageName) {
         switch (stageName) {
@@ -28,6 +30,11 @@ public class StageGenerator {
                 }
                 return properties;
             }
+            case Video -> {
+                if (video == null)
+                    video = new Stage();
+                return video;
+            }
         }
         return null;
     }
@@ -37,23 +44,58 @@ public class StageGenerator {
             mainStage = other;
     }
 
-    public static void changeMainScene(String viewPath) {
+//    public static void changeMainScene(String viewPath) {
+//        Parent root;
+//        try {
+//            root = FXMLLoader.load(AView.class.getResource(viewPath));
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return;
+//        }
+//        Stage primaryStage = StageGenerator.getInstance(StageGenerator.StageName.Main);
+//        primaryStage.setResizable(false);
+//        primaryStage.setScene(new Scene(root, Color.BLACK));
+//        primaryStage.show();
+//        primaryStage.requestFocus();
+//    }
+
+    public static void startMain() {
         Parent root;
         try {
-            root = FXMLLoader.load(AView.class.getResource(viewPath));
+            root = FXMLLoader.load(AView.class.getResource("../View/MyView.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         Stage primaryStage = StageGenerator.getInstance(StageGenerator.StageName.Main);
+        primaryStage.getIcons().add(new Image("./Icons/icon.png"));
+        primaryStage.setTitle("ATP-Project - Dora The Explorer");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, Color.BLACK));
         primaryStage.show();
         primaryStage.requestFocus();
     }
 
+    public static void startVideo() {
+        Parent root;
+        try {
+            root = FXMLLoader.load(AView.class.getResource("../View/VideoPlayer.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
+        stage.getIcons().add(new Image("./Icons/icon.png"));
+        stage.setTitle("ATP-Project - Dora The Explorer");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, Color.BLACK));
+        stage.show();
+        stage.requestFocus();
+    }
+
     public enum StageName {
         Main,
-        Properties
+        Properties,
+        Video
     }
 }

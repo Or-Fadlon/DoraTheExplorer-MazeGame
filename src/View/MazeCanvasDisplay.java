@@ -220,6 +220,7 @@ public class MazeCanvasDisplay extends Canvas {
         this.maze = maze;
         this.updateScale();
         this.setPlayerPosition(playerPosition);
+        this.followerPosition = null;
         this.draw();
         this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.BackGround);
         this.mazeAudioPlayer.play(MazeAudioPlayer.MazeSound.Start);
@@ -267,8 +268,8 @@ public class MazeCanvasDisplay extends Canvas {
 
     public void finish() {
         this.mazeAudioPlayer.stopAll();
-        VideoPlayer.setVideo(VideoPlayer.MazeVideo.Finish);
-        StageGenerator.changeMainScene("../View/VideoPlayer.fxml");
+        StageGenerator.getInstance(StageGenerator.StageName.Main).close();
+        StageGenerator.startVideo();
     }
 
     public void wallHit() {

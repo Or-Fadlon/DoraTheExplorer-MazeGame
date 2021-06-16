@@ -9,7 +9,7 @@
             onScroll="#scrollHandle" fx:id="borderPane">
     <top>
         <!-- content from TopBar.fxml included here -->
-        <fx:include fx:id="TopBar" source="TopBar.fxml"/>
+        <fx:include fx:id="topBar" source="TopBar.fxml"/>
     </top>
     <bottom>
         <HBox BorderPane.alignment="CENTER"/>

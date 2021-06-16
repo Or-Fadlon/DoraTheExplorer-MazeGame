@@ -18,13 +18,14 @@ public class MyViewController extends AView implements Initializable { //TODO: r
     public Label easyArrow;
     public Label mediumArrow;
     public Label hardArrow;
-    public MenuBar TopBar;
+    public MenuBar topBar;
 
     private GameDiff mode = GameDiff.Easy;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.BackGround);
+        TopBar.setState(TopBar.GameState.Select);
     }
 
     public void generateMazeButton(ActionEvent actionEvent) {

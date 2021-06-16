@@ -20,19 +20,24 @@ public class PlayerProperties implements Initializable {
         //TODO: check the FX value we get!
         PlayerConfig config = PlayerConfig.getInstance();
 
-        this.backSlider.setValue(config.getBackVolume()*100);
-        this.fxSlider.setValue(config.getFxVolume()*100);
+        this.backSlider.setValue(config.getBackVolume() * 100);
+        this.fxSlider.setValue(config.getFxVolume() * 100);
         this.muteToggle.setSelected(config.isMute());
-        this.choiceBox.getItems().add(0,PlayerConfig.GenerateAlgorithm.MyMazeGenerator);
-        this.choiceBox.getItems().add(1,PlayerConfig.GenerateAlgorithm.SimpleMazeGenerator);
-        this.choiceBox.getItems().add(2,PlayerConfig.GenerateAlgorithm.EmptyMazeGenerator);
+        this.muteToggle.setText(config.isMute() ? "On" : "Off");
+        this.muteToggle.setOnMouseClicked((e) -> {
+            this.muteToggle.setText(this.muteToggle.getText().equals("On") ? "Off" : "On");
+        });
+        this.choiceBox.setValue(config.getGenerateAlgorithm());
+        this.choiceBox.getItems().add(0, PlayerConfig.GenerateAlgorithm.MyMazeGenerator);
+        this.choiceBox.getItems().add(1, PlayerConfig.GenerateAlgorithm.SimpleMazeGenerator);
+        this.choiceBox.getItems().add(2, PlayerConfig.GenerateAlgorithm.EmptyMazeGenerator);
     }
 
     public void submit(ActionEvent actionEvent) {
         PlayerConfig config = PlayerConfig.getInstance();
 
-        config.setBackVolume(this.backSlider.getValue()/100);
-        config.setFxVolume(this.fxSlider.getValue()/100);
+        config.setBackVolume(this.backSlider.getValue() / 100);
+        config.setFxVolume(this.fxSlider.getValue() / 100);
         config.setMute(this.muteToggle.isSelected());
         if (this.choiceBox.getValue() != null)
             config.setGenerateAlgorithm(PlayerConfig.toAlgorithm(this.choiceBox.getValue().toString()));

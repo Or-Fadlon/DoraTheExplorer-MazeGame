@@ -3,28 +3,43 @@ package View;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.media.MediaPlayer;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class TopBar {
+    public static GameState gameState = GameState.Select;
+    private static MazeView mazeView;
+    public MenuItem newItem;
+    public MenuItem saveItem;
+
+    public static void setState(GameState state) {
+        gameState = state;
+    }
+
+    public static void setMazeView(MazeView maze) {
+        mazeView = maze;
+    }
+
     public void newOne(ActionEvent actionEvent) {
-        System.out.println("new");
+        mazeView.generateNewMaze();
     }
 
     public void save(ActionEvent actionEvent) {
-        System.out.println("new");
+        mazeView.saveMaze();
     }
 
     public void load(ActionEvent actionEvent) {
-        System.out.println("new");
+        mazeView.loadMaze();
     }
 
     public void properties(ActionEvent actionEvent) {
@@ -58,5 +73,16 @@ public class TopBar {
     }
 
     public void about(MouseEvent mouseEvent) {
+    }
+
+    public void updateState(MouseEvent mouseEvent) {
+        boolean disable = gameState != GameState.Play;
+        this.newItem.setDisable(disable);
+        this.saveItem.setDisable(disable);
+    }
+
+    public enum GameState {
+        Select,
+        Play
     }
 }

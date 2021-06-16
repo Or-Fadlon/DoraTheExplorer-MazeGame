@@ -19,17 +19,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         StageGenerator.setMainStage(primaryStage);
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/View/VideoPlayer.fxml")));
-        primaryStage.getIcons().add(new Image(getClass().getResource("/Icons/icon.png").toString()));
-        primaryStage.setTitle("ATP-Project - Dora The Explorer");
-        primaryStage.setResizable(false);
+        primaryStage.hide();
+        StageGenerator.startVideo();
+
+
 //        primaryStage.setX(150);
 //        primaryStage.setY(150);
 //        primaryStage.setFullScreen(true);
 //        primaryStage.setFullScreenExitHint("Let's Go!!!");
 
-        primaryStage.setScene(new Scene(root, Color.BLACK));
-        primaryStage.show();
-        primaryStage.requestFocus();
     }
 }
