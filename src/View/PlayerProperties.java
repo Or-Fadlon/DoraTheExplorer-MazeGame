@@ -23,9 +23,9 @@ public class PlayerProperties implements Initializable {
         this.fxSlider.setValue(config.getFxVolume() * 100);
         this.muteToggle.setSelected(config.isMute());
         this.muteToggle.setText(config.isMute() ? "On" : "Off");
-        this.muteToggle.setOnMouseClicked((e) -> {
-            this.muteToggle.setText(this.muteToggle.getText().equals("On") ? "Off" : "On");
-        });
+        this.muteToggle.setOnMouseClicked((e) ->
+            this.muteToggle.setText(this.muteToggle.getText().equals("On") ? "Off" : "On")
+        );
         this.choiceBox.setValue(config.getGenerateAlgorithm());
         this.choiceBox.getItems().add(0, PlayerConfig.GenerateAlgorithm.MyMazeGenerator);
         this.choiceBox.getItems().add(1, PlayerConfig.GenerateAlgorithm.SimpleMazeGenerator);

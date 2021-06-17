@@ -1,12 +1,12 @@
 .root {
-    -fx-background-color: bisque;
+    -fx-background-color: beige;
 }
 
 Button {
     -fx-text-fill: white;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-background-color: linear-gradient(Pink, #ff5470);
     -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
     -fx-font-size: 30;
 }
@@ -27,11 +27,26 @@ Button:hover {
 
 .selectArrow { /* 🢂 */
     -fx-font-size: 60;
+    -fx-text-fill: linear-gradient(#6F6F6FFF, White, #6f6f6f);
+    -fx-stroke: White;
 }
 
 .selectLabel { /*Easy-Medium-Hard*/
     -fx-font-size: 40;
     -fx-font-weight: bold;
+    -fx-stroke: White;
+}
+
+#easyTitle {
+    -fx-text-fill: linear-gradient(Purple, #d9afd9);
+}
+
+#mediumTitle {
+    -fx-text-fill: linear-gradient(Blue, #a6a6ff);
+}
+
+#hardTitle {
+    -fx-text-fill: linear-gradient(Red, #f69595);
 }
 
 .hide {

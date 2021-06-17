@@ -7,7 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,6 +22,8 @@ public class MyViewController extends AView implements Initializable {
     public Label mediumArrow;
     public Label hardArrow;
     public MenuBar topBar;
+    public ImageView imageView;
+    public AnchorPane pane;
 
     private GameDiff mode = GameDiff.Easy;
 
@@ -26,6 +31,8 @@ public class MyViewController extends AView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.BackGround);
         TopBar.setState(TopBar.GameState.Select);
+        Image image = new Image(getClass().getResourceAsStream("/Images/select.png"));
+        imageView.setImage(image);
     }
 
     public void generateMazeButton(ActionEvent actionEvent) {
