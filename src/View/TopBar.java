@@ -67,9 +67,11 @@ public class TopBar {
     }
 
     public void help(MouseEvent mouseEvent) {
+        StageGenerator.startHelp();
     }
 
     public void about(MouseEvent mouseEvent) {
+        StageGenerator.startAbout();
     }
 
     public void updateState(MouseEvent mouseEvent) {

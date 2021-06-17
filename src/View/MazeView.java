@@ -3,6 +3,7 @@ package View;
 import Model.ModelResponses;
 import Model.MovementDirection;
 import ViewModel.MyViewModel;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCode;
@@ -30,22 +31,25 @@ public class MazeView extends AView implements Observer {
         this.myViewModel.addObserver(this);
         TopBar.setState(TopBar.GameState.Play);
         TopBar.setMazeView(this);
+        this.addResizeListener();//TODO: We need to move it!!
+        this.addCloseProperties();//TODO: We need to move it!!
     }
 
     public void addResizeListener() {
-        ((Stage) this.borderPane.getScene().getWindow()).setResizable(true);
-        this.borderPane.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
-            this.mazeCanvasDisplay.setWidth((double) newVal); //TODO: handle min size
+        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Main);
+        stage.setResizable(true);
+        stage.getScene().widthProperty().addListener((obs, oldVal, newVal) -> {
+            this.mazeCanvasDisplay.setWidth((double) newVal);
             this.mazeCanvasDisplay.resizeHandle();
         });
-        this.borderPane.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
-            this.mazeCanvasDisplay.setHeight((double) newVal); //TODO: handle min size
+        stage.getScene().heightProperty().addListener((obs, oldVal, newVal) -> {
+            this.mazeCanvasDisplay.setHeight((double) newVal);
             this.mazeCanvasDisplay.resizeHandle();
         });
     }
 
     private void addCloseProperties() {
-        this.mazeCanvasDisplay.getScene().getWindow().setOnCloseRequest(windowEvent -> {
+        StageGenerator.getInstance(StageGenerator.StageName.Main).setOnCloseRequest(windowEvent -> {
             this.myViewModel.exit();
         });
     }
@@ -70,8 +74,6 @@ public class MazeView extends AView implements Observer {
         this.cols = cols;
         this.mazeCanvasDisplay.setSolution(null);
         this.myViewModel.generateMaze(rows, cols);
-        this.addResizeListener();//TODO: We need to move it!!
-        this.addCloseProperties();//TODO: We need to move it!!
     }
 
     private void finishGame() {

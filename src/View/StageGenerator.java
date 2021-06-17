@@ -15,6 +15,7 @@ public class StageGenerator {
     private static Stage mainStage;
     private static Stage properties;
     private static Stage video;
+    private static Stage helpAbout;
 
     public static Stage getInstance(StageName stageName) {
         switch (stageName) {
@@ -34,6 +35,12 @@ public class StageGenerator {
                 if (video == null)
                     video = new Stage();
                 return video;
+            }
+
+            case Help -> {
+                if (helpAbout == null)
+                    helpAbout = new Stage();
+                return helpAbout;
             }
         }
         return null;
@@ -78,9 +85,44 @@ public class StageGenerator {
         stage.requestFocus();
     }
 
+    public static void startHelp() {
+        Parent root;
+        try {
+            root = FXMLLoader.load(AView.class.getResource("../View/Help.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
+        stage.getIcons().add(new Image("./Icons/icon.png"));
+        stage.setTitle("ATP-Project - Dora The Explorer");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, Color.BLACK));
+        stage.show();
+        stage.requestFocus();
+    }
+
+    public static void startAbout() {
+        Parent root;
+        try {
+            root = FXMLLoader.load(AView.class.getResource("../View/About.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
+        stage.getIcons().add(new Image("./Icons/icon.png"));
+        stage.setTitle("ATP-Project - Dora The Explorer");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root, Color.BLACK));
+        stage.show();
+        stage.requestFocus();
+    }
+
     public enum StageName {
         Main,
         Properties,
-        Video
+        Video,
+        Help
     }
 }

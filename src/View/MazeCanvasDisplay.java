@@ -33,7 +33,7 @@ public class MazeCanvasDisplay extends Canvas {
 
 
     public void LoadRes() {
-        this.LoadRes(MazeGallery.Theme.Diego);
+        this.LoadRes(MazeGallery.Theme.Dora);
     }
 
     public void LoadRes(MazeGallery.Theme theme) {
