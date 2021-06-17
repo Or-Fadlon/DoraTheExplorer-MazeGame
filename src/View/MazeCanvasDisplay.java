@@ -217,6 +217,7 @@ public class MazeCanvasDisplay extends Canvas {
     }
 
     public void drawNewMaze(Maze maze, Position playerPosition) {
+        this.solution = null;
         this.maze = maze;
         this.updateScale();
         this.setPlayerPosition(playerPosition);

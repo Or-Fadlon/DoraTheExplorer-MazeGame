@@ -44,21 +44,6 @@ public class StageGenerator {
             mainStage = other;
     }
 
-//    public static void changeMainScene(String viewPath) {
-//        Parent root;
-//        try {
-//            root = FXMLLoader.load(AView.class.getResource(viewPath));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return;
-//        }
-//        Stage primaryStage = StageGenerator.getInstance(StageGenerator.StageName.Main);
-//        primaryStage.setResizable(false);
-//        primaryStage.setScene(new Scene(root, Color.BLACK));
-//        primaryStage.show();
-//        primaryStage.requestFocus();
-//    }
-
     public static void startMain() {
         Parent root;
         try {
@@ -87,7 +72,7 @@ public class StageGenerator {
         Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
         stage.getIcons().add(new Image("./Icons/icon.png"));
         stage.setTitle("ATP-Project - Dora The Explorer");
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setScene(new Scene(root, Color.BLACK));
         stage.show();
         stage.requestFocus();

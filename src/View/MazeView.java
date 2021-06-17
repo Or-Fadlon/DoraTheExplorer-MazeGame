@@ -91,7 +91,7 @@ public class MazeView extends AView implements Observer {
         FileChooser fc = new FileChooser();
         fc.setTitle("Save maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
-        fc.setInitialDirectory(new File("./resources"));
+//        fc.setInitialDirectory(new File("./resources"));
         File chosen = fc.showSaveDialog(null);
         if (chosen != null)
             this.myViewModel.saveMaze(chosen);
@@ -101,7 +101,7 @@ public class MazeView extends AView implements Observer {
         FileChooser fc = new FileChooser();
         fc.setTitle("Open maze");
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Maze files (*.maze)", "*.maze"));
-        fc.setInitialDirectory(new File("./resources"));
+//        fc.setInitialDirectory(new File("./resources"));
         File chosen = fc.showOpenDialog(null);
         this.myViewModel.loadMaze(chosen);
     }
