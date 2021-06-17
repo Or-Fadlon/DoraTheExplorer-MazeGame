@@ -8,16 +8,17 @@ import java.util.Random;
 
 public class MazeGallery {
     private static MazeGallery mazeGallery;
-
+    private Theme theme;
     private Image playerUp, playerRight, playerDown, playerLeft, follower, wall, solution, goal, out;
 
-    private MazeGallery(Theme theme) {
-        this.loadImages(theme);
+    private MazeGallery() {
+        this.theme = Theme.Dora;
+        this.loadImages(this.theme);
     }
 
-    public static MazeGallery getInstance(Theme theme) {
+    public static MazeGallery getInstance() {
         if (mazeGallery == null)
-            mazeGallery = new MazeGallery(theme);
+            mazeGallery = new MazeGallery();
         return mazeGallery;
     }
 
@@ -66,6 +67,38 @@ public class MazeGallery {
         }
         try {
             this.out = new Image(new FileInputStream(prefix + "Wall/out.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+    }
+
+    public void reloadTheme(Theme theme){
+        if (this.theme == theme)
+            return;
+        this.theme = theme;
+        String prefix = "./resources/Images/";
+        try {
+            this.playerUp = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/up.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.playerRight = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/right.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.playerDown = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/down.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.playerLeft = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/left.png"));
+        } catch (FileNotFoundException e) {
+            System.out.println("image not found");
+        }
+        try {
+            this.follower = new Image(new FileInputStream(prefix + "Player/" + theme.toString() + "/follower.png"));
         } catch (FileNotFoundException e) {
             System.out.println("image not found");
         }

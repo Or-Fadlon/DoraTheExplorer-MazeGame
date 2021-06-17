@@ -15,12 +15,5 @@ public class Main extends Application {
         StageGenerator.setMainStage(primaryStage);
         primaryStage.hide();
         StageGenerator.startVideo();
-
-
-//        primaryStage.setX(150);
-//        primaryStage.setY(150);
-//        primaryStage.setFullScreen(true);
-//        primaryStage.setFullScreenExitHint("Let's Go!!!");
-
     }
 }

@@ -3,7 +3,6 @@ package View;
 import Model.ModelResponses;
 import Model.MovementDirection;
 import ViewModel.MyViewModel;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.MenuBar;
 import javafx.scene.input.KeyCode;
@@ -31,8 +30,6 @@ public class MazeView extends AView implements Observer {
         this.myViewModel.addObserver(this);
         TopBar.setState(TopBar.GameState.Play);
         TopBar.setMazeView(this);
-        this.addResizeListener();//TODO: We need to move it!!
-        this.addCloseProperties();//TODO: We need to move it!!
     }
 
     public void addResizeListener() {
@@ -74,6 +71,8 @@ public class MazeView extends AView implements Observer {
         this.cols = cols;
         this.mazeCanvasDisplay.setSolution(null);
         this.myViewModel.generateMaze(rows, cols);
+        this.addResizeListener();
+        this.addCloseProperties();
     }
 
     private void finishGame() {

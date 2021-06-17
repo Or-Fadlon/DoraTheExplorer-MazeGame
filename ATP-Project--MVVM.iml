@@ -13,10 +13,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="javafx-fxml" level="project" />
-    <orderEntry type="library" name="javafx-swt" level="project" />
     <orderEntry type="library" name="log4j-core" level="project" />
     <orderEntry type="library" name="log4j-api" level="project" />
     <orderEntry type="library" name="ATP-Project" level="project" />
+    <orderEntry type="library" name="lib" level="project" />
   </component>
 </module>

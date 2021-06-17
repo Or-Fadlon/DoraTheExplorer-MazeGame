@@ -10,8 +10,6 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -23,7 +21,6 @@ public class MyViewController extends AView implements Initializable {
     public Label hardArrow;
     public MenuBar topBar;
     public ImageView imageView;
-    public AnchorPane pane;
 
     private GameDiff mode = GameDiff.Easy;
 
@@ -36,44 +33,34 @@ public class MyViewController extends AView implements Initializable {
     }
 
     public void generateMazeButton(ActionEvent actionEvent) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View/MazeDisplayer.fxml"));
-
-        Parent root;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return;
-        }
-
         int rows = 0, cols = 0;
-
         switch (this.mode) {
             case Easy -> {
-                rows = 15;
-                cols = 15;
+                CharSelect.rows = 15;
+                CharSelect.cols = 15;
             }
             case Medium -> {
-                rows = 30;
-                cols = 30;
+                CharSelect.rows = 30;
+                CharSelect.cols = 30;
             }
             case Hard -> {
-                rows = 50;
-                cols = 50;
+                CharSelect.rows = 50;
+                CharSelect.cols = 50;
             }
         }
 
-        MazeView mazeView = loader.getController();
-        Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Main);
-        stage.setScene(new Scene(root));
-        stage.show();
-        mazeView.generateNewMaze(rows, cols);
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../View/CharecterSelect.fxml"));
+            StageGenerator.getInstance(StageGenerator.StageName.Main).setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void keyPressed(KeyEvent keyEvent) {
         switch ((keyEvent.getCode())) {
-            case NUMPAD8, UP -> this.changeUp();
-            case NUMPAD2, DOWN -> this.changeDown();
+            case W, NUMPAD8, UP -> this.changeUp();
+            case S, NUMPAD2, DOWN -> this.changeDown();
             case ENTER -> this.generateMazeButton(null);
         }
         keyEvent.consume();

@@ -33,16 +33,12 @@ public class MazeCanvasDisplay extends Canvas {
 
 
     public void LoadRes() {
-        this.LoadRes(MazeGallery.Theme.Dora);
-    }
-
-    public void LoadRes(MazeGallery.Theme theme) {
-        LoadImages(theme);
+        LoadImages();
         LoadSound();
     }
 
-    private void LoadImages(MazeGallery.Theme theme) {
-        this.mazeGallery = MazeGallery.getInstance(theme);
+    private void LoadImages() {
+        this.mazeGallery = MazeGallery.getInstance();
     }
 
     private void LoadSound() {
