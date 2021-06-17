@@ -26,6 +26,8 @@ public class VideoPlayer extends AView implements Initializable {
         this.mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnEndOfMedia(() -> this.stopVideo(null));
         this.mediaView.setMediaPlayer(mediaPlayer);
+        this.mediaView.fitHeightProperty().bind(StageGenerator.getInstance(StageGenerator.StageName.Video).heightProperty());
+        this.mediaView.fitWidthProperty().bind(StageGenerator.getInstance(StageGenerator.StageName.Video).widthProperty());
         mediaPlayer.setAutoPlay(true);
 
     }
