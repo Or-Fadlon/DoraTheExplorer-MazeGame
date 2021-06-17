@@ -145,8 +145,18 @@ public class MazeView extends AView implements Observer {
                 Math.abs(diffY) >= scale) {
             if (mouseEvent.isControlDown())
                 this.mazeCanvasDisplay.moveFreeCamera(diffX, diffY, scale);
-            else
+            else {
                 myViewModel.movePlayer(diffX, diffY, scale);
+                if (-diffY >= scale)
+                    this.mazeCanvasDisplay.setPlayerDirection(MovementDirection.UP);
+                if (diffX >= scale)
+                    this.mazeCanvasDisplay.setPlayerDirection(MovementDirection.RIGHT);
+                if (diffY >= scale)
+                    this.mazeCanvasDisplay.setPlayerDirection(MovementDirection.DOWN);
+                if (-diffX >= scale)
+                    this.mazeCanvasDisplay.setPlayerDirection(MovementDirection.LEFT);
+
+            }
             lastMouseX = mouseEvent.getX();
             lastMouseY = mouseEvent.getY();
         }
