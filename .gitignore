@@ -77,6 +77,10 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 # Java
+
+# Output folders
+target/
+
 # Compiled class file
 *.class
 
