@@ -1,7 +1,5 @@
 package Backend.algorithms.mazeGenerators;
 
-import Backend.algorithms.mazeGenerators.Position;
-
 import java.io.Serializable;
 import java.util.*;
 

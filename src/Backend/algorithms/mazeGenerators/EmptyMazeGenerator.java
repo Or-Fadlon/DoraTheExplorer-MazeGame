@@ -1,8 +1,5 @@
 package Backend.algorithms.mazeGenerators;
 
-import Backend.algorithms.mazeGenerators.AMazeGenerator;
-import Backend.algorithms.mazeGenerators.Maze;
-
 /**
  * Empty maze generator
  */

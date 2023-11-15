@@ -1,10 +1,10 @@
 package Frontend.ViewModel;
 
+import Backend.algorithms.mazeGenerators.Maze;
+import Backend.algorithms.mazeGenerators.Position;
 import Backend.algorithms.search.Solution;
 import Frontend.Model.MovementDirection;
 import Frontend.Model.MyModel;
-import Backend.algorithms.mazeGenerators.Maze;
-import Backend.algorithms.mazeGenerators.Position;
 import javafx.scene.input.KeyEvent;
 
 import java.io.File;

@@ -1,7 +1,5 @@
 package Backend.algorithms.mazeGenerators;
 
-import Backend.algorithms.mazeGenerators.Maze;
-
 /**
  * 2D maze generator interface
  */

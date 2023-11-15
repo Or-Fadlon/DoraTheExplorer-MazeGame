@@ -7,10 +7,10 @@ import Backend.Server.Configurations;
 import Backend.Server.Server;
 import Backend.Server.ServerStrategyGenerateMaze;
 import Backend.Server.ServerStrategySolveSearchProblem;
-import Backend.algorithms.search.Solution;
-import Frontend.View.PlayerConfig;
 import Backend.algorithms.mazeGenerators.Maze;
 import Backend.algorithms.mazeGenerators.Position;
+import Backend.algorithms.search.Solution;
+import Frontend.View.PlayerConfig;
 
 import java.io.*;
 import java.net.InetAddress;

@@ -1,9 +1,5 @@
 package Backend.algorithms.mazeGenerators;
 
-import Backend.algorithms.mazeGenerators.AMazeGenerator;
-import Backend.algorithms.mazeGenerators.Maze;
-import Backend.algorithms.mazeGenerators.Position;
-
 import java.util.Random;
 
 /**
