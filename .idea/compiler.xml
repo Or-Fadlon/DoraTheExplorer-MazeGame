@@ -16,11 +16,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ATP-Project--MVVM" />
+        <module name="DoraTheExplorer-MazeGame" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ATP-Project--MVVM" target="15" />
-    </bytecodeTargetLevel>
   </component>
 </project>
