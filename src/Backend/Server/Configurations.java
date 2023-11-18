@@ -14,6 +14,8 @@ import java.util.Properties;
  * Server Configuration - implementing "SingleTone Pattern"
  */
 public class Configurations {
+    private static final String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Maze-Project\\";
+    private static final String filePath = tempDirectoryPath + "Config.properties";
     // static variable of Singleton pattern
     private static Configurations single_instance = null;
 
@@ -27,16 +29,16 @@ public class Configurations {
      */
     private Configurations() {
         this.properties = new Properties();
-        File file = new File("resources/config.properties");
+        File file = new File(filePath);
         try {
             if (file.createNewFile()) {
-                FileOutputStream fileOut = new FileOutputStream("resources/config.properties");
+                FileOutputStream fileOut = new FileOutputStream(filePath);
                 properties.setProperty("threadPoolSize", "" + 3);
                 properties.setProperty("mazeGeneratingAlgorithm", "MyMazeGenerator");
                 properties.setProperty("mazeSearchingAlgorithm", "BestFirstSearch");
                 properties.store(fileOut, null);
             }
-            FileInputStream fileIn = new FileInputStream("resources/config.properties");
+            FileInputStream fileIn = new FileInputStream(filePath);
             properties.load(fileIn);
             this.threadPoolSize = Integer.parseInt(properties.getProperty("threadPoolSize"));
             this.mazeGeneratingAlgorithm = properties.getProperty("mazeGeneratingAlgorithm");
@@ -76,7 +78,7 @@ public class Configurations {
         if (threadPoolSize < 1)
             throw new IllegalArgumentException("ThreadPool size cant be < 1");
         try {
-            FileOutputStream fileOut = new FileOutputStream("resources/config.properties");
+            FileOutputStream fileOut = new FileOutputStream(filePath);
             properties.setProperty("threadPoolSize", "" + threadPoolSize);
             properties.store(fileOut, null);
             this.threadPoolSize = threadPoolSize;
@@ -103,12 +105,13 @@ public class Configurations {
         try {
             Class<?> mazeGenerateClass = Class.forName("Backend.algorithms.mazeGenerators." + mazeGeneratingAlgorithm);
             IMazeGenerator mazeGenerateAlgorithm = (IMazeGenerator) mazeGenerateClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             throw new ClassNotFoundException("Given class isn't implementing IMazeGenerator");
         }
 
         try {
-            FileOutputStream fileOut = new FileOutputStream("resources/config.properties");
+            FileOutputStream fileOut = new FileOutputStream(filePath);
             properties.setProperty("mazeGeneratingAlgorithm", mazeGeneratingAlgorithm);
             properties.store(fileOut, null);
             this.mazeGeneratingAlgorithm = mazeGeneratingAlgorithm;
@@ -135,12 +138,13 @@ public class Configurations {
         try {
             Class<?> mazeSearchClass = Class.forName("Backend.algorithms.search." + mazeSearchingAlgorithm);
             ISearchingAlgorithm mazeSearchAlgorithm = (ISearchingAlgorithm) mazeSearchClass.getDeclaredConstructor().newInstance();
-        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | IllegalAccessException | InstantiationException |
+                 InvocationTargetException e) {
             throw new ClassNotFoundException("Given class isn't implementing ISearchingAlgorithm");
         }
 
         try {
-            FileOutputStream fileOut = new FileOutputStream("resources/config.properties");
+            FileOutputStream fileOut = new FileOutputStream(filePath);
             properties.setProperty("mazeSearchingAlgorithm", mazeSearchingAlgorithm);
             properties.store(fileOut, null);
             this.mazeSearchingAlgorithm = mazeSearchingAlgorithm;

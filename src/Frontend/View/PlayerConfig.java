@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PlayerConfig {
-    private static final String filePath = "resources/PlayerConfig.properties";
+    private static final String tempDirectoryPath = System.getProperty("java.io.tmpdir") + "Maze-Project\\";
+    private static final String filePath = tempDirectoryPath + "PlayerConfig.properties";
     private static PlayerConfig single_instance = null;
     private final Properties properties = new Properties();
 
