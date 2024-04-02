@@ -4,6 +4,7 @@
     <root id="archive" name="DoraTheExplorer-MazeGame.jar">
       <element id="module-output" name="DoraTheExplorer-MazeGame" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/16/javafx-fxml-16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/16/javafx-graphics-16-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/16/javafx-controls-16-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/16/javafx-media-16.jar" path-in-jar="/" />
@@ -12,7 +13,6 @@
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/16/javafx-fxml-16-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-media/16/javafx-media-16-win.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-base/16/javafx-base-16.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-api/2.17.1/log4j-api-2.17.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/apache/logging/log4j/log4j-core/2.17.1/log4j-core-2.17.1.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/16/javafx-graphics-16.jar" path-in-jar="/" />
     </root>
