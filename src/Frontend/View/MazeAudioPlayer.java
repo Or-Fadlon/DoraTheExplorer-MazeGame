@@ -24,32 +24,32 @@ public class MazeAudioPlayer {
     private void loadSound() {
         String path;
         try {
-            path = getClass().getResource("/Sound/background.mp3").toString();
+            path = getClass().getResource("/resources/Sound/background.mp3").toString();
             this.backgroundAudio = new AudioClip(path);
         } catch (Exception e) {
-            System.out.println("Start sound not found");
+            System.out.println("background sound not found");
         }
         try {
-            path = getClass().getResource("/Sound/start.mp3").toString();
+            path = getClass().getResource("/resources/Sound/start.mp3").toString();
             this.startAudio = new AudioClip(path);
         } catch (Exception e) {
-            System.out.println("Start sound not found");
+            System.out.println("start sound not found");
         }
         try {
-            path = getClass().getResource("/Sound/hitWall.mp3").toString();
+            path = getClass().getResource("/resources/Sound/hitWall.mp3").toString();
             this.wallAudio = new AudioClip(path);
         } catch (Exception e) {
             System.out.println("hitWall sound not found");
         }
         try {
-            path = getClass().getResource("/Sound/solution.mp3").toString();
+            path = getClass().getResource("/resources/Sound/solution.mp3").toString();
             this.solutionAudio = new AudioClip(path);
 
         } catch (Exception e) {
             System.out.println("solution sound not found");
         }
         try {
-            path = getClass().getResource("/Sound/properties.mp3").toString();
+            path = getClass().getResource("/resources/Sound/properties.mp3").toString();
             this.propertiesAudio = new AudioClip(path);
 
         } catch (Exception e) {

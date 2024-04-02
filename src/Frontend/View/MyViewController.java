@@ -28,7 +28,7 @@ public class MyViewController extends AView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.BackGround);
         TopBar.setState(TopBar.GameState.Select);
-        Image image = new Image(getClass().getResourceAsStream("/Images/select.png"));
+        Image image = new Image(getClass().getResourceAsStream("/resources/Images/select.png"));
         imageView.setImage(image);
     }
 
@@ -50,7 +50,7 @@ public class MyViewController extends AView implements Initializable {
         }
 
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("./CharecterSelect.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/resources/FXML/CharecterSelect.fxml"));
             StageGenerator.getInstance(StageGenerator.StageName.Main).setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();

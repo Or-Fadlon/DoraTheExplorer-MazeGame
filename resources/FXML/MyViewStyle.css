@@ -1,0 +1,54 @@
+.root {
+    -fx-background-color: beige;
+}
+
+Button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(Pink, #ff5470);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 5, 0.0, 0, 1);
+    -fx-font-size: 30;
+}
+
+Button:hover {
+    -fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0 0 -1 0, 0, 1, 2;
+    -fx-background-radius: 3px, 3px, 2px, 1px;
+    -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+
+.gameTitle { /*Fadlon-Game*/
+    -fx-font-size: 70;
+}
+
+.selectArrow { /* 🢂 */
+    -fx-font-size: 60;
+    -fx-text-fill: linear-gradient(#6F6F6FFF, White, #6f6f6f);
+    -fx-stroke: White;
+}
+
+.selectLabel { /*Easy-Medium-Hard*/
+    -fx-font-size: 40;
+    -fx-font-weight: bold;
+    -fx-stroke: White;
+}
+
+#easyTitle {
+    -fx-text-fill: linear-gradient(Purple, #d9afd9);
+}
+
+#mediumTitle {
+    -fx-text-fill: linear-gradient(Blue, #a6a6ff);
+}
+
+#hardTitle {
+    -fx-text-fill: linear-gradient(Red, #f69595);
+}
+
+.hide {
+    visibility: hide;
+}

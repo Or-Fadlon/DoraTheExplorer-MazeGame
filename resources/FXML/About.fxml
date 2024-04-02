@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="809.0" stylesheets="@HelpAbout.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label styleClass="title" text="About" />
+      <Label styleClass="content" text="The game &quot;Dora The Explorer &quot; was developed by Or Fadlon, 25 years old from Kadima" GridPane.rowIndex="1" />
+      <Label styleClass="content" text="The algorithms that I used for generate a new maze are:" GridPane.rowIndex="2" />
+      <Label styleClass="content" text="*SimpleMazeGenerator - Randome Generation with more then one path." GridPane.rowIndex="4" />
+      <Label styleClass="content" GridPane.rowIndex="6" />
+      <Label styleClass="content" text="The algorithms that I used for solving a maze are:" GridPane.rowIndex="7" />
+      <Label styleClass="content" text="*MyMazeGenerator - implemention of &quot;Randomized Prim's algorithm&quot;." GridPane.rowIndex="3" />
+      <Label styleClass="content" text="*EmptyMazeGenerator - maze without wall" GridPane.rowIndex="5" />
+      <Label styleClass="content" text="*Best First Search" GridPane.rowIndex="8" />
+      <Label styleClass="content" text="*Breadth First Search " GridPane.rowIndex="9" />
+      <Label styleClass="content" text="*Depth First Search" GridPane.rowIndex="10" />
+   </children>
+</GridPane>

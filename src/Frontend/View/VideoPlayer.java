@@ -17,12 +17,13 @@ public class VideoPlayer extends AView implements Initializable {
     private MediaPlayer mediaPlayer;
 
     public void setMediaView(MazeVideo video) {
-        String videoPath = null;
+        String videoPath = "/resources/Video/";
         switch (video) {
-            case Opening -> videoPath = "resources/Video/opening.mp4";
-            case Finish -> videoPath = "resources/Video/finish.mp4";
+            case Opening -> videoPath += "opening.mp4";
+            case Finish -> videoPath += "finish.mp4";
         }
-        Media media = new Media(new File(videoPath).toURI().toString());
+        URL url = MediaPlayer.class.getResource(videoPath);
+        Media media = new Media(url.toString());
         this.mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setOnEndOfMedia(() -> this.stopVideo(null));
         this.mediaView.setMediaPlayer(mediaPlayer);

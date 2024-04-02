@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class TopBar {
     public static GameState gameState = GameState.Select;
@@ -43,7 +44,12 @@ public class TopBar {
         Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Properties);
         stage.setResizable(false);
         stage.setTitle("Properties");
-        stage.getIcons().add(new Image(getClass().getResource("/Icons/icon.png").toString()));
+        URL iconPath = AView.class.getResource("/resources/Icons/icon.png");
+        if (iconPath != null) {
+            stage.getIcons().add(new Image(iconPath.toString()));
+        } else {
+            System.out.println("Error - Icon not found");
+        }
         MazeAudioPlayer.getInstance().play(MazeAudioPlayer.MazeSound.Properties);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -52,7 +58,7 @@ public class TopBar {
             }
         });
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./PlayerProperties.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/FXML/PlayerProperties.fxml"));
         try {
             Parent root = loader.load();
             stage.setScene(new Scene(root));

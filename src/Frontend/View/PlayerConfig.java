@@ -17,8 +17,9 @@ public class PlayerConfig {
     private GenerateAlgorithm generateAlgorithm;
 
     private PlayerConfig() {
+        File directory = new File(tempDirectoryPath);
+        directory.mkdirs();
         File file = new File(filePath);
-
         try {
             if (file.createNewFile()) {
                 FileOutputStream fileOut = new FileOutputStream(filePath);

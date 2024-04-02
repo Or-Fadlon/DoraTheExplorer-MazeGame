@@ -9,6 +9,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class StageGenerator {
 
@@ -54,13 +55,18 @@ public class StageGenerator {
     public static void startMain() {
         Parent root;
         try {
-            root = FXMLLoader.load(AView.class.getResource("./MyView.fxml"));
+            root = FXMLLoader.load(AView.class.getResource("/resources/FXML/MyView.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         Stage primaryStage = StageGenerator.getInstance(StageGenerator.StageName.Main);
-        primaryStage.getIcons().add(new Image("./Icons/icon.png"));
+        URL iconPath = AView.class.getResource("/resources/Icons/icon.png");
+        if (iconPath != null) {
+            primaryStage.getIcons().add(new Image(iconPath.toString()));
+        } else {
+            System.out.println("Error - Icon not found");
+        }
         primaryStage.setTitle("ATP-Project - Dora The Explorer");
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, Color.BLACK));
@@ -71,13 +77,18 @@ public class StageGenerator {
     public static void startVideo() {
         Parent root;
         try {
-            root = FXMLLoader.load(AView.class.getResource("./VideoPlayer.fxml"));
+            root = FXMLLoader.load(AView.class.getResource("/resources/FXML/VideoPlayer.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
-        stage.getIcons().add(new Image("./Icons/icon.png"));
+        URL iconPath = AView.class.getResource("/resources/Icons/icon.png");
+        if (iconPath != null) {
+            stage.getIcons().add(new Image(iconPath.toString()));
+        } else {
+            System.out.println("Error - Icon not found");
+        }
         stage.setTitle("ATP-Project - Dora The Explorer");
         stage.setResizable(true);
         stage.setScene(new Scene(root, Color.BLACK));
@@ -88,13 +99,18 @@ public class StageGenerator {
     public static void startHelp() {
         Parent root;
         try {
-            root = FXMLLoader.load(AView.class.getResource("./Help.fxml"));
+            root = FXMLLoader.load(AView.class.getResource("/resources/FXML/Help.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
-        stage.getIcons().add(new Image("./Icons/icon.png"));
+        URL iconPath = AView.class.getResource("/resources/Icons/icon.png");
+        if (iconPath != null) {
+            stage.getIcons().add(new Image(iconPath.toString()));
+        } else {
+            System.out.println("Error - Icon not found");
+        }
         stage.setTitle("ATP-Project - Dora The Explorer");
         stage.setResizable(false);
         stage.setScene(new Scene(root, Color.BLACK));
@@ -105,13 +121,18 @@ public class StageGenerator {
     public static void startAbout() {
         Parent root;
         try {
-            root = FXMLLoader.load(AView.class.getResource("./About.fxml"));
+            root = FXMLLoader.load(AView.class.getResource("/resources/FXML/About.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
         }
         Stage stage = StageGenerator.getInstance(StageGenerator.StageName.Video);
-        stage.getIcons().add(new Image("./Icons/icon.png"));
+        URL iconPath = AView.class.getResource("/resources/Icons/icon.png");
+        if (iconPath != null) {
+            stage.getIcons().add(new Image(iconPath.toString()));
+        } else {
+            System.out.println("Error - Icon not found");
+        }
         stage.setTitle("ATP-Project - Dora The Explorer");
         stage.setResizable(false);
         stage.setScene(new Scene(root, Color.BLACK));

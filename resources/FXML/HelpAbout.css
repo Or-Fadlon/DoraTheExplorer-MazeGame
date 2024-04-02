@@ -1,0 +1,13 @@
+.root {
+    -fx-background-color: beige;
+}
+
+.title { /*Fadlon-Game*/
+    -fx-font-size: 50;
+    -fx-underline: true;
+}
+
+
+.content { /*Easy-Medium-Hard*/
+    -fx-font-size: 20;
+}

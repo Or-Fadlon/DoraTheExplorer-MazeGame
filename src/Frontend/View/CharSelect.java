@@ -21,14 +21,14 @@ public class CharSelect implements Initializable {
     public ImageView doraChar;
     public ImageView diegoChar;
     public ImageView imageView;
-    Image doraC = new Image(getClass().getResourceAsStream("/Images/Select/doraColor.png"));
-    Image doraB = new Image(getClass().getResourceAsStream("/Images/Select/doraBW.png"));
-    Image diegoC = new Image(getClass().getResourceAsStream("/Images/Select/diegoColor.png"));
-    Image diedoB = new Image(getClass().getResourceAsStream("/Images/Select/diegoBW.png"));
+    Image doraC = new Image(getClass().getResourceAsStream("/resources/Images/Select/doraColor.png"));
+    Image doraB = new Image(getClass().getResourceAsStream("/resources/Images/Select/doraBW.png"));
+    Image diegoC = new Image(getClass().getResourceAsStream("/resources/Images/Select/diegoColor.png"));
+    Image diedoB = new Image(getClass().getResourceAsStream("/resources/Images/Select/diegoBW.png"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Image image = new Image(getClass().getResourceAsStream("/Images/select.png"));
+        Image image = new Image(getClass().getResourceAsStream("/resources/Images/select.png"));
         imageView.setImage(image);
         theme = MazeGallery.Theme.Dora;
         doraChar.setImage(doraC);
@@ -60,7 +60,7 @@ public class CharSelect implements Initializable {
 
     public void generateMazeButton(ActionEvent actionEvent) {
         MazeGallery.getInstance().reloadTheme(theme);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("./MazeDisplayer.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/FXML/MazeDisplayer.fxml"));
 
         Parent root;
         try {
