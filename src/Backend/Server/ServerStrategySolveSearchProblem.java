@@ -28,8 +28,9 @@ public class ServerStrategySolveSearchProblem extends AServerStrategy {
         this.counter = 0;
         Maze loadedMaze;
         ObjectInputStream inMazeFile;
+        File directory = new File(directoryPath);
+        directory.mkdirs();
         File file;
-        new File(directoryPath).mkdir();
         while (true) { //load all solved old
             file = new File(directoryPath + "maze" + counter + ".maze");
             if (file.exists()) {

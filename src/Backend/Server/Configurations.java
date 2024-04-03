@@ -29,6 +29,9 @@ public class Configurations {
      */
     private Configurations() {
         this.properties = new Properties();
+
+        File directory = new File(tempDirectoryPath);
+        directory.mkdirs();
         File file = new File(filePath);
         try {
             if (file.createNewFile()) {
