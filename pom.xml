@@ -113,7 +113,6 @@
                             <classPath>
                                 <mainClass>${mainClass}</mainClass>
                             </classPath>
-                            <errTitle>ERROR-FADLON</errTitle>
                             <jre>
                                 <minVersion>1.8.0</minVersion>
                             </jre>
