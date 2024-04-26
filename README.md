@@ -39,12 +39,13 @@ mvn clean package
 4. Run the game executable inside the "target" directory.
 
 ## 📸 Screenshots
+### Start screen
 ![start](https://github.com/Or-Fadlon/ATP-Project--MVVM/assets/63373097/0ac8a365-acfb-4eb4-8761-896d83bcd3d7)
-Choosing between Dora and Diego
+### Choosing between Dora and Diego
 ![select](https://github.com/Or-Fadlon/ATP-Project--MVVM/assets/63373097/1a81baa3-f228-4471-855d-7fc82611eddf)
-In-game action with Dora
+### In-game action with Dora
 ![maze](https://github.com/Or-Fadlon/ATP-Project--MVVM/assets/63373097/7fc5511a-d8fb-431c-8dfb-d35fdb58cfff)
-Solving hint
+### Solving hint
 ![hint](https://github.com/Or-Fadlon/ATP-Project--MVVM/assets/63373097/6d60994c-f426-466b-83eb-6416bc0c6ee7)
 
 ## 🎥 Gameplay Video
