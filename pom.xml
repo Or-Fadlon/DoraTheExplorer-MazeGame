@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
-        <javafx.version>16</javafx.version>
+        <javafx.version>17.0.10</javafx.version>
         <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
         <projectName>Dora The Explorer - Maze Game</projectName>
         <fileName>DoraTheExplorer-MazeGame</fileName>
@@ -109,6 +109,7 @@
                             <headerType>gui</headerType>
                             <outfile>target/${fileName}.exe</outfile>
                             <jar>target/${project.build.finalName}-jar-with-dependencies.jar</jar>
+<!--                            <jar>target/${project.build.finalName}.jar</jar>-->
                             <classPath>
                                 <mainClass>${mainClass}</mainClass>
                             </classPath>
